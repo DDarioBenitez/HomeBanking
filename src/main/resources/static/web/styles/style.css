@@ -1,0 +1,80 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+body {
+  height: 100vh;
+  background-image: url(../images/ligth.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  transition: 0.3s;
+}
+.nav {
+  background-color: #98b1e2;
+  transition: 0.3s;
+}
+.footer {
+  background-color: #98b1e2;
+  transition: 0.3s;
+}
+
+.dark {
+  background-image: url(../images/dark.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  transition: 0.3s;
+}
+.darkColor {
+  background-color: #223356;
+  transition: 0.3s;
+}
+
+/* Theme */
+.custom-switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  margin: 10px;
+}
+
+.custom-switch input {
+  display: none;
+}
+
+.custom-switch .active {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #d3e1a7;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.custom-switch .active:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+.custom-switch input:checked + .active {
+  background-color: black;
+}
+
+.custom-switch input:checked + .active:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
