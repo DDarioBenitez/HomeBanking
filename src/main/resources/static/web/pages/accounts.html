@@ -28,7 +28,7 @@
                 <div class="collapse navbar-collapse justify-content-end gap-2 pe-2" id="navbarSupportedContent">
                     <ul class="navbar-nav mb-2 mb-lg-0  text-center">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="./accounts.html">Account</a>
+                            <a class="nav-link active" aria-current="page" href="./accounts.html">Accounts</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="#">Cards</a>
@@ -54,50 +54,39 @@
     </header>
 
     <body class="d-flex flex-column " data-bs-theme="ligth" id="body">
-        <main class="flex-grow-1 p-2 d-flex flex-column gap-3 align-items-center flex-lg-row justify-content-lg-around"
+        <main class="flex-grow-1 p-2 d-flex flex-column gap-3 align-items-center flex-lg-row justify-content-lg-around "
             id="app">
-            <div class="card cardS p-2 bg-transparent fw-bold" style="width: 18rem; backdrop-filter: blur(15px);">
+            <div class="card cardS p-2 bg-transparent" style="width: 18rem; backdrop-filter: blur(15px);">
                 <img src="../images/avatar-femenino.png" class="card-img-top" alt="...">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item bg-transparent fw-bold" style="backdrop-filter: blur(15px);">Nombre:
+                <ul class="list-group list-group-flush fw-bold">
+                    <li class="list-group-item bg-transparent" style="backdrop-filter: blur(15px);">Nombre:
                         {{client.firstName}}</li>
                     <li class="list-group-item bg-transparent" style="backdrop-filter: blur(15px);">Apellido:
                         {{client.lastName}}</li>
                     <li class="list-group-item bg-transparent" style="backdrop-filter: blur(15px);">E-mail:
                         {{client.email}}
                     </li>
-                    <li class="list-group-item bg-transparent" style="backdrop-filter: blur(15px);">Account:
-                        {{account.number}}
-                    </li>
-                    <li class="list-group-item bg-transparent fs-3" style="backdrop-filter: blur(15px);"><i
-                            class="bi bi-box-arrow-left"></i>
-                    </li>
                 </ul>
             </div>
-            <div class="d-flex justify-content-around flex-column gap-3 align-items-center col-12 col-lg-7">
-                <table class="col-12">
-                    <thead class="p-2 bg-transparent fw-bold border border-black">
-                        <tr>
-                            <th class="text-center" colspan="4">Transactions Resume</th>
-                        </tr>
-                        <tr>
-                            <td class="p-1 border border-black">Type</td>
-                            <td class="p-1 border border-black">Amount</td>
-                            <td class="p-1 border border-black">Description</td>
-                            <td class="p-1 border border-black">Date</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <template v-for="transaction of transactions">
-                            <tr :class="transaction.type=='CREDIT' ? 'p-1 bg-success':'p-1 bg-danger'">
-                                <td class="p-1 border border-black">{{transaction.type}}</td>
-                                <td class="p-1 border border-black">{{transaction.amount.toLocaleString()}}</td>
-                                <td class="p-1 border border-black">{{transaction.description}}</td>
-                                <td class="p-1 border border-black">{{transaction.date}}</td>
-                            </tr>
-                        </template>
-                    </tbody>
-                </table>
+            <div class="d-flex justify-content-around flex-column gap-3 align-items-center col-12 col-lg-5">
+                <template v-for="account of accounts">
+                    <div class="card col-12 bg-transparent text-lg-center col-lg-7"
+                        style="backdrop-filter: blur(15px);">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item bg-transparent" style="backdrop-filter: blur(15px);">Number of
+                                Account: {{account.number}}</li>
+                            <li class="list-group-item bg-transparent" style="backdrop-filter: blur(15px);">Balance:
+                                {{account.balance}}</li>
+                            <li class="list-group-item bg-transparent" style="backdrop-filter: blur(15px);">Creation
+                                Date:
+                                {{account.creationDate}}</li>
+                        </ul>
+                        <a v-bind:href="'./account.html?id='+account.id"
+                            class="d-flex justify-content-center text-decoration-none"><button type="button"
+                                class="css-button-gradient--2">View
+                                More</button></a>
+                    </div>
+                </template>
             </div>
         </main>
 
@@ -117,8 +106,7 @@
             crossorigin="anonymous"></script>
         <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-        <!-- <script src="../scripts/accounts.js"></script> -->
-        <script src="../scripts/account.js"></script>
+        <script src="../scripts/accounts.js"></script>
         <script src="../scripts/theme.js"></script>
 
     </body>

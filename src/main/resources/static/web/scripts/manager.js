@@ -24,7 +24,7 @@ const clients = createApp({
                 .catch(error => console.log("ERROR"))
         },
         send() {
-            axios.post("http://localhost:8080/REST/clients", {
+            axios.post("http://localhost:8080/clients", {
                 firstName: this.firstName,
                 lastName: this.lastName,
                 email: this.email
