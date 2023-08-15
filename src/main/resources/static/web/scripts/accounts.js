@@ -5,6 +5,7 @@ const cards = createApp({
         return {
             client: [],
             accounts: [],
+            loans: [],
         }
     },
     created() {
@@ -16,8 +17,9 @@ const cards = createApp({
                 .then(data => {
                     this.client = data.data
                     console.log(this.client);
-                    console.log(this.theme);
                     this.accounts = data.data.accounts
+                    this.loans = data.data.loans
+                    console.log(this.loans);
                 })
                 .catch(error => console.log("ERROR"))
         },

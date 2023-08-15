@@ -1,11 +1,7 @@
 package com.mindhub.homebanking;
 
-import com.mindhub.homebanking.models.Account;
-import com.mindhub.homebanking.models.Client;
-import com.mindhub.homebanking.models.Transaction;
-import com.mindhub.homebanking.repositories.AccountRepository;
-import com.mindhub.homebanking.repositories.ClientRepository;
-import com.mindhub.homebanking.repositories.TransactionRepository;
+import com.mindhub.homebanking.models.*;
+import com.mindhub.homebanking.repositories.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static com.mindhub.homebanking.models.TransactionType.CREDIT;
 import static com.mindhub.homebanking.models.TransactionType.DEBIT;
@@ -25,7 +22,7 @@ public class HomebankingApplication {
 	}
 
 	@Bean
-	public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository, TransactionRepository transactionRepository) {
+	public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository, TransactionRepository transactionRepository, ClientLoanRepository clientLoanRepository, LoanRepository loanRepository) {
 		return (args) -> {
             //Clients
             Client melba = new Client("Melba", "Morel", "melbaM@gmail.com");
@@ -97,7 +94,34 @@ public class HomebankingApplication {
 
             Transaction tr14= new Transaction(DEBIT,9800.92,"x", LocalDateTime.now().minusHours(2));
 
+            //Loans
+            Loan mortgage= new Loan("Mortgage Loan", 500000, List.of(12,24,36,48,60));
+            loanRepository.save(mortgage);
+            Loan personal= new Loan("Personal Loan", 100000, List.of(6,12,24));
+            loanRepository.save(personal);
+            Loan car= new Loan("Car Loan", 300000,List.of(6,12,24,36));
+            loanRepository.save(car);
 
+            //ClientLoan
+
+            ClientLoan cl1=new ClientLoan(400000,60);
+            ClientLoan cl2=new ClientLoan(50000,12);
+            ClientLoan cl3=new ClientLoan(100000,24);
+            ClientLoan cl4= new ClientLoan(200000,36);
+
+           cl1.addClient(melba);
+           cl1.addLoan(mortgage);
+           clientLoanRepository.save(cl1);
+           cl2.addClient(melba);
+           cl2.addLoan(personal);
+           clientLoanRepository.save(cl2);
+
+           cl3.addClient(jack);
+           cl3.addLoan(personal);
+           clientLoanRepository.save(cl3);
+           cl4.addClient(jack);
+           cl4.addLoan(car);
+           clientLoanRepository.save(cl4);
 
 
 			//Assignment Accounts

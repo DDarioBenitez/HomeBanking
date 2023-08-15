@@ -23,6 +23,7 @@ public class Account {
     private Client client;
     @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
     private Set<Transaction> transactions = new HashSet<>();
+
     public Account(){
 
     }
