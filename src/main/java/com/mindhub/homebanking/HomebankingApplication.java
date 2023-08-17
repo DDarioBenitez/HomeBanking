@@ -11,6 +11,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static com.mindhub.homebanking.models.CardColor.*;
+import static com.mindhub.homebanking.models.CardType.CCREDIT;
+import static com.mindhub.homebanking.models.CardType.CDEBIT;
 import static com.mindhub.homebanking.models.TransactionType.CREDIT;
 import static com.mindhub.homebanking.models.TransactionType.DEBIT;
 
@@ -22,7 +25,7 @@ public class HomebankingApplication {
 	}
 
 	@Bean
-	public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository, TransactionRepository transactionRepository, ClientLoanRepository clientLoanRepository, LoanRepository loanRepository) {
+	public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository, TransactionRepository transactionRepository, ClientLoanRepository clientLoanRepository, LoanRepository loanRepository, CardRepository cardRepository) {
 		return (args) -> {
             //Clients
             Client melba = new Client("Melba", "Morel", "melbaM@gmail.com");
@@ -109,20 +112,30 @@ public class HomebankingApplication {
             ClientLoan cl3=new ClientLoan(100000,24);
             ClientLoan cl4= new ClientLoan(200000,36);
 
-           cl1.addClient(melba);
-           cl1.addLoan(mortgage);
-           clientLoanRepository.save(cl1);
-           cl2.addClient(melba);
-           cl2.addLoan(personal);
-           clientLoanRepository.save(cl2);
+           melba.addClientLoan(cl1);
+           mortgage.addClientLoan(cl1);
+           melba.addClientLoan(cl2);
+           personal.addClientLoan(cl2);
+           jack.addClientLoan(cl3);
+           personal.addClientLoan(cl3);
+           jack.addClientLoan(cl4);
+           car.addClientLoan(cl4);
 
-           cl3.addClient(jack);
-           cl3.addLoan(personal);
+           clientLoanRepository.save(cl1);
+           clientLoanRepository.save(cl2);
            clientLoanRepository.save(cl3);
-           cl4.addClient(jack);
-           cl4.addLoan(car);
            clientLoanRepository.save(cl4);
 
+           //Cards
+            Card card1= new Card(CDEBIT, GOLD,LocalDate.now(), 331, "4000232454321298","Melba Morel");
+            Card card2= new Card(CCREDIT,TITANIUM, LocalDate.now(), 234, "4513982176235401","Melba Morel");
+            Card card3= new Card(CCREDIT,SILVER, LocalDate.now(),129,"4513209863726348", "Jack Bauer");
+            melba.addCard(card1);
+            melba.addCard(card2);
+            jack.addCard(card3);
+            cardRepository.save(card1);
+            cardRepository.save(card2);
+            cardRepository.save(card3);
 
 			//Assignment Accounts
 			melba.addAccount(vin001);

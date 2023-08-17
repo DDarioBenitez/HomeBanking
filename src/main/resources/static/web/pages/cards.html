@@ -66,39 +66,12 @@
                     <li class="list-group-item bg-transparent" style="backdrop-filter: blur(15px);">E-mail:
                         {{client.email}}
                     </li>
-                    <li class="list-group-item bg-transparent" style="backdrop-filter: blur(15px);">Account:
-                        {{account.number}}
-                    </li>
                     <li class="list-group-item bg-transparent fs-3" style="backdrop-filter: blur(15px);"><i
                             class="bi bi-box-arrow-left"></i>
                     </li>
                 </ul>
             </div>
-            <div class="d-flex justify-content-around flex-column gap-3 align-items-center col-12 col-lg-7">
-                <table class="col-12">
-                    <thead class="p-2 bg-transparent fw-bold border border-black">
-                        <tr>
-                            <th class="text-center" colspan="4">Transactions Resume</th>
-                        </tr>
-                        <tr>
-                            <td class="p-1 border border-black">Type</td>
-                            <td class="p-1 border border-black">Amount</td>
-                            <td class="p-1 border border-black">Description</td>
-                            <td class="p-1 border border-black">Date</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <template v-for="transaction of transactions">
-                            <tr :class="transaction.type=='CREDIT' ? 'p-1 bg-success':'p-1 bg-danger'">
-                                <td class="p-1 border border-black">{{transaction.type}}</td>
-                                <td class="p-1 border border-black">{{transaction.amount.toLocaleString()}}</td>
-                                <td class="p-1 border border-black">{{transaction.description}}</td>
-                                <td class="p-1 border border-black">{{new Date(transaction.date).toLocaleString()}}</td>
-                            </tr>
-                        </template>
-                    </tbody>
-                </table>
-            </div>
+
         </main>
 
         <footer
@@ -117,7 +90,7 @@
             crossorigin="anonymous"></script>
         <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-        <script src="../scripts/account.js"></script>
+        <script src="../scripts/cards.js"></script>
         <script src="../scripts/theme.js"></script>
 
     </body>

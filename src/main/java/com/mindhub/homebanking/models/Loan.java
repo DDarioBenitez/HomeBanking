@@ -3,6 +3,7 @@ package com.mindhub.homebanking.models;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -19,7 +20,7 @@ public class Loan {
 
 
     @OneToMany(mappedBy = "loan", fetch = FetchType.EAGER)
-    private Set<ClientLoan> clientLoans;
+    private Set<ClientLoan> clientLoans = new HashSet<>();
 
     public Loan(){
 
@@ -63,7 +64,7 @@ public class Loan {
     }
 
     public void addClientLoan(ClientLoan clientLoan) {
-        clientLoan.addLoan(this);
+        clientLoan.setLoan(this);
         clientLoans.add(clientLoan);
     }
 }

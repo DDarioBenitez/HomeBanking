@@ -52,7 +52,7 @@ public class ClientLoan {
         return client;
     }
 
-    public void addClient(Client client) {
+    public void setClient(Client client) {
         this.client = client;
     }
 
@@ -60,7 +60,7 @@ public class ClientLoan {
         return loan;
     }
 
-    public void addLoan(Loan loan) {
+    public void setLoan(Loan loan) {
         this.loan = loan;
     }
 

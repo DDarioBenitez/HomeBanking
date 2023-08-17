@@ -8,26 +8,26 @@ body {
   background-image: url(../images/ligth.png);
   background-repeat: no-repeat;
   background-size: cover;
-  transition: 0.3s;
+  transition: 0.3s ease;
 }
 .nav {
   background-color: #98b1e2;
-  transition: 0.3s;
+  transition: 0.3s ease;
 }
 .footer {
   background-color: #98b1e2;
-  transition: 0.3s;
+  transition: 0.3s ease;
 }
 
 .dark {
   background-image: url(../images/dark.png);
   background-repeat: no-repeat;
   background-size: cover;
-  transition: 0.3s;
+  transition: 0.4s ease;
 }
 .darkColor {
   background-color: #223356;
-  transition: 0.3s;
+  transition: 0.4s ease;
 }
 
 /* Theme */
@@ -52,7 +52,7 @@ body {
   bottom: 0;
   background-color: #d3e1a7;
   -webkit-transition: 0.4s;
-  transition: 0.4s;
+  transition: 0.4s ease;
   border-radius: 34px;
 }
 
@@ -65,7 +65,7 @@ body {
   bottom: 4px;
   background-color: white;
   -webkit-transition: 0.4s;
-  transition: 0.4s;
+  transition: 0.4s ease;
   border-radius: 50%;
 }
 

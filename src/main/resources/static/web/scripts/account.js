@@ -29,13 +29,11 @@ const transactions = createApp({
             console.log(accountIdSearch);
             let accountId = accountIdSearch.get('id')
             console.log(accountId);
-
             axios.get("http://localhost:8080/api/accounts/" + accountId)
                 .then(response => {
                     this.account = response.data
                     this.transactions = [...response.data.transactions];
                     console.log(this.transactions.sort((a, b) => b.id - a.id));
-                    console.log(typeof this.transactions);
                 })
                 .catch(error => console.log("ERROR"))
         }
