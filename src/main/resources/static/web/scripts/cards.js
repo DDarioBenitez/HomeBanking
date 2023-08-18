@@ -19,6 +19,23 @@ const cards = createApp({
                     console.log(this.cards);
                 })
                 .catch(error => console.log("ERROR"))
+        },
+        setNumber(card) {
+            const number = card.number;
+            const aux = [];
+            for (let i = 0; i < number.length; i += 4) {
+                aux.push(number.substring(i, i + 4));
+            }
+            return aux.join(" ")
+        },
+        setColor(card) {
+            if (card.color == "TITANIUM") {
+                return "tarjet-titanium"
+            } else if (card.color == "GOLD") {
+                return "tarjet-gold"
+            } else {
+                return "tarjet-silver"
+            }
         }
     }
 })
