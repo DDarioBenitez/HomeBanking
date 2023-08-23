@@ -2,10 +2,12 @@ package com.mindhub.homebanking;
 
 import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.repositories.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -20,30 +22,33 @@ import static com.mindhub.homebanking.models.TransactionType.DEBIT;
 @SpringBootApplication
 public class HomebankingApplication {
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 	public static void main(String[] args) {
 		SpringApplication.run(HomebankingApplication.class, args);
 	}
+
 
 	@Bean
 	public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository, TransactionRepository transactionRepository, ClientLoanRepository clientLoanRepository, LoanRepository loanRepository, CardRepository cardRepository) {
 		return (args) -> {
             //Clients
-            Client melba = new Client("Melba", "Morel", "melbaM@gmail.com");
+            Client melba = new Client("Melba", "Morel", "melbaM@gmail.com",passwordEncoder.encode("Treinta"));
             clientRepository.save(melba);
 
-            Client jack = new Client("Jack", "Bauer", "jackB@gmail.com");
+            Client jack = new Client("Jack", "Bauer", "jackB@gmail.com",passwordEncoder.encode("12345"));
             clientRepository.save(jack);
 
-            Client chloe = new Client("Chloe", "O'Brian", "chloeO@gmail.com");
+            Client chloe = new Client("Chloe", "O'Brian", "chloeO@gmail.com",passwordEncoder.encode("12345"));
             clientRepository.save(chloe);
 
-            Client kim = new Client("Kim", "Bauer", "kimB@gmail.com");
+            Client kim = new Client("Kim", "Bauer", "kimB@gmail.com",passwordEncoder.encode("12345"));
             clientRepository.save(kim);
 
-            Client david = new Client("David", "Palmer", "davidP@gmail.com");
+            Client david = new Client("David", "Palmer", "davidP@gmail.com",passwordEncoder.encode("12345"));
             clientRepository.save(david);
 
-            Client michelle = new Client("Michelle", "Dessler", "michelleD@gmail.com");
+            Client michelle = new Client("Michelle", "Dessler", "michelleD@gmail.com",passwordEncoder.encode("12345"));
             clientRepository.save(michelle);
 
 
