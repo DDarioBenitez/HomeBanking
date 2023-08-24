@@ -11,6 +11,6 @@ swith.addEventListener("change", e => {
         foot.classList.toggle("darkColor")
         head.classList.toggle("darkColor")
         body.setAttribute("data-bs-theme", (e.target.checked == true ? "dark" : "ligth"))
-        img.setAttribute("src", (e.target.checked == true ? "../images/logo-blanco.png" : "../images/logo-azul.png"))
+        img.setAttribute("src", (e.target.checked == true ? "../../images/logo-blanco.png" : "../../images/logo-azul.png"))
     }
 })

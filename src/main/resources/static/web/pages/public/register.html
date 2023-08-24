@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sing Up</title>
+    <link rel="shortcut icon" href="../../images/urbanbank-website-favicon-color.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    </link>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../../styles/style.css">
+</head>
+
+<body class="d-flex flex-column align-items-center" data-bs-theme="ligth" id="body">
+    <header class="navbar-expand-lg col-12">
+        <nav class="navbar p-0">
+            <div class="container-fluid nav p-2 align-items-center" id="head">
+                <div class="col-9 col-lg-5">
+                    <img src="../../images/logo-azul.png" alt="" class="w-75" id="logoNav">
+                </div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end gap-2 pe-2" id="navbarSupportedContent">
+                    <ul class="navbar-nav mb-2 mb-lg-0  text-center">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="./login.html">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Sing Up</a>
+                    </ul>
+
+                    <div>
+                        <div class="custom-switch">
+                            <input type="checkbox" id="switch">
+                            <label for="switch" class="active"></label>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main class="d-flex flex-grow-1 col-11 align-items-center flex-column justify-content-center flex-md-row" id="app">
+        <div class="img-login col-5">
+            <img src="../../images/Login-rafiki.svg" alt="">
+        </div>
+        <div
+            class="formLoginRegister container d-flex flex-column form-login bg-transparent blur justify-content-around text-center rounded  gap-3 col-8 col-lg-4">
+            <h1>Login</h1>
+            <form class="col-12">
+                <label for="firstName" class="text-start col-12 p-2 fw-bold">First Name</label>
+                <input v-model="firstName" type="text" name="firstName" id="firstName"
+                    class="bg-transparent col-12 rounded">
+                <label for="lastName" class=" text-start col-12 p-2 fw-bold">Last Name</label>
+                <input v-model="lastName" type="text" name="lastName id=" lastName
+                    class="bg-transparent col-12 rounded">
+                <label for="userName" class="text-start col-12 p-2 fw-bold">E-mail</label>
+                <input v-model="email" type="email" name="userName" id="userName" class="bg-transparent col-12 rounded">
+                <label for="password" class="text-start col-12 p-2 fw-bold">Password</label>
+                <input v-model="password" type="password" name="password" id="password"
+                    class="bg-transparent col-12 rounded">
+            </form>
+            <button @click="register" type="button" class="col-5 align-self-center rounded btn btn-success">Sing
+                Up</button>
+
+            <p>Do you have already account? <a href="../public/login.html">Sign In</a>
+            </p>
+        </div>
+    </main>
+
+    <footer
+        class="footer p-1 col-12 d-flex flex-column-reverse align-items-center flex-lg-row justify-content-lg-around text-lg-center"
+        id="foot">
+        <h6 class="p-1 m-lg-0"><i class=" bi bi-c-circle"></i> 2023: All rights reserved</h6>
+        <div class="ps-2 pe-2">
+            <a href=""><i class="bi bi-facebook fs-1"></i></a>
+            <a href=""><i class="bi bi-whatsapp fs-1"></i></i></a>
+            <a href=""><i class="bi bi-twitter fs-1"></i></a>
+            <a href=""><i class="bi bi-instagram fs-1"></i></a>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../../scripts/register.js"></script>
+    <script src="../../scripts/theme.js"></script>
+</body>
+
+</html>

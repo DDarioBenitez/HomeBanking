@@ -3,6 +3,7 @@ package com.mindhub.homebanking.configurations;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -22,16 +23,19 @@ public class WebAuthorization {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 
             http.authorizeRequests()
-                    .antMatchers("/admin/**").hasAuthority("ADMIN")
-                    .antMatchers("/web/pages/**").hasAuthority("CLIENT")
-                    .antMatchers("/index.html").hasAuthority("CLIENT");
+                    .antMatchers("/web/index.html", "/web/pages/public/**").permitAll()
+                    .antMatchers("/web/scripts/login.js", "/web/scripts/register.js").permitAll()
+                    .antMatchers(HttpMethod.POST, "/api/login", "/api/clients", "/api/logout").permitAll()
+                    .antMatchers(HttpMethod.GET,"/api/clients").hasAuthority("CLIENT")
+                    .antMatchers("/web/pages/admin/**").hasAuthority("ADMIN")
+                    .antMatchers("/web/pages/client/**").hasAuthority("CLIENT");
 
             http.formLogin()
-                    .usernameParameter("name")
-                    .passwordParameter("pwd")
+                    .usernameParameter("email")
+                    .passwordParameter("password")
                     .loginPage("/api/login");
 
-            http.logout().logoutUrl("api/logout");
+            http.logout().logoutUrl("/api/logout");
 
             // turn off checking for CSRF tokens
             http.csrf().disable();

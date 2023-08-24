@@ -33,7 +33,7 @@ public class HomebankingApplication {
 	public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository, TransactionRepository transactionRepository, ClientLoanRepository clientLoanRepository, LoanRepository loanRepository, CardRepository cardRepository) {
 		return (args) -> {
             //Clients
-            Client melba = new Client("Melba", "Morel", "melbaM@gmail.com",passwordEncoder.encode("Treinta"));
+            Client melba = new Client("Melba", "Morel", "melbaM@gmail.com",passwordEncoder.encode("12345"));
             clientRepository.save(melba);
 
             Client jack = new Client("Jack", "Bauer", "jackB@gmail.com",passwordEncoder.encode("12345"));
@@ -51,6 +51,8 @@ public class HomebankingApplication {
             Client michelle = new Client("Michelle", "Dessler", "michelleD@gmail.com",passwordEncoder.encode("12345"));
             clientRepository.save(michelle);
 
+            Client admin= new Client("admin","admin", "admin@gmail.com",passwordEncoder.encode("admin1"));
+            clientRepository.save(admin);
 
             //Accounts
             Account vin001 = new Account("VIN001", LocalDate.now(), 5000);

@@ -213,6 +213,21 @@ body {
   left: 0.8rem;
 }
 
+/* Form-Login */
+
+.form-login {
+  height: 60vh !important;
+}
+.formLoginRegister {
+  box-shadow: 0px 0px 22px 8px rgba(138, 69, 133, 0.39);
+  -webkit-box-shadow: 0px 0px 22px 8px rgba(138, 69, 133, 0.39);
+  -moz-box-shadow: 0px 0px 22px 8px rgba(138, 69, 133, 0.39);
+}
+.blur {
+  width: 25rem;
+  backdrop-filter: blur(5px);
+}
+
 /* Responsive */
 
 @media screen and (max-width: 475px) {
@@ -223,5 +238,12 @@ body {
     top: 4.7em;
     right: 3.5rem;
     background-color: white;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .img-login {
+    display: none;
+    transition: 0.3s ease;
   }
 }

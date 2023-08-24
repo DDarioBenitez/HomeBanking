@@ -12,7 +12,7 @@ const cards = createApp({
     },
     methods: {
         loadData() {
-            axios.get("http://localhost:8080/api/clients/1")
+            axios.get("http://localhost:8080/api/clients")
                 .then(data => {
                     this.client = data.data
                     this.cards = data.data.cards;
@@ -36,6 +36,13 @@ const cards = createApp({
             } else {
                 return "tarjet-silver"
             }
+        },
+        logout() {
+            axios.post("http://localhost:8080/api/logout")
+                .then(response => {
+                    window.location.href = "http://localhost:8080/web/pages/public/login.html"
+                })
+                .catch(err => console.log(err))
         }
     }
 })
