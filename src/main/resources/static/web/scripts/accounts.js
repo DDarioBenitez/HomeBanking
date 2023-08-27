@@ -13,7 +13,7 @@ const cards = createApp({
     },
     methods: {
         loadData() {
-            axios.get("http://localhost:8080/api/clients")
+            axios.get("http://localhost:8080/api/clients/current")
                 .then(data => {
                     this.client = data.data
                     console.log(this.client);

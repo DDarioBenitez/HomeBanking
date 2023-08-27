@@ -16,7 +16,7 @@ const transactions = createApp({
     },
     methods: {
         loadClient() {
-            axios.get("http://localhost:8080/api/clients")
+            axios.get("http://localhost:8080/api/clients/current")
                 .then(data => {
                     this.client = data.data
                 })
