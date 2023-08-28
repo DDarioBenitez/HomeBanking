@@ -22,7 +22,6 @@ public class RandomNumberGenerator {
         while (cadena.length() < 8) {
             cadena.insert(0, "0");
         }
-        System.out.println(cadena.toString());
         return cadena.toString();
     }
 
@@ -54,6 +53,6 @@ public class RandomNumberGenerator {
             count++;// le sumamos uno al contador
         }while(count<3);// una vez el contador llegue a 3 el bucle no se volvera a repetir esto quiere decir que cuando se repita 3 veces pasa a la siguiente linea
 
-        return "4513"+creditNumber.toString();// a dfirencia del metodo debitNumberGenerator tenemos que agregar el numero por defecto para identificar que es de credito y concatenar el numero creado y pasarlo a string como el metodo ya mencionado
+        return "4513"+ " " +creditNumber.toString();// a dfirencia del metodo debitNumberGenerator tenemos que agregar el numero por defecto para identificar que es de credito y concatenar el numero creado y pasarlo a string como el metodo ya mencionado
     }
 }
