@@ -239,6 +239,9 @@ body {
     right: 3.5rem;
     background-color: white;
   }
+  .blur {
+    width: 19rem;
+  }
 }
 
 @media screen and (max-width: 767px) {

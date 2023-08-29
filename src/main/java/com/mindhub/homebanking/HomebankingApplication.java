@@ -134,9 +134,9 @@ public class HomebankingApplication {
            clientLoanRepository.save(cl4);
 
            //Cards
-            Card card1= new Card(CDEBIT, GOLD,LocalDate.now(), 331, "4000232454321298","Melba Morel");
-            Card card2= new Card(CCREDIT,TITANIUM, LocalDate.now(), 234, "4513982176235401","Melba Morel");
-            Card card3= new Card(CCREDIT,SILVER, LocalDate.now(),129,"4513209863726348", "Jack Bauer");
+            Card card1= new Card(CDEBIT, GOLD,LocalDate.now(), 331, "4000 2324 5432 1298","Melba Morel");
+            Card card2= new Card(CCREDIT,TITANIUM, LocalDate.now(), 234, "4513 9821 7623 5401","Melba Morel");
+            Card card3= new Card(CCREDIT,SILVER, LocalDate.now(),129,"4513 2098 6372 6348", "Jack Bauer");
             melba.addCard(card1);
             melba.addCard(card2);
             jack.addCard(card3);

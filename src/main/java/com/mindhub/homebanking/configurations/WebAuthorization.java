@@ -24,11 +24,14 @@ public class WebAuthorization {
 
             http.authorizeRequests()
                     .antMatchers("/web/index.html", "/web/pages/public/**").permitAll()
-                    .antMatchers("/web/scripts/login.js", "/web/scripts/register.js").permitAll()
+                    .antMatchers("/web/scripts/login.js", "/web/scripts/register.js","/web/scripts/index.js","/web/scripts/theme.js","/web/styles/**","/web/images/**").permitAll()
                     .antMatchers(HttpMethod.POST, "/api/login", "/api/clients", "/api/logout").permitAll()
+                    .antMatchers(HttpMethod.POST, "/api/clients/current/cards", "/api/clients/current/accounts").hasAuthority("CLIENT")
                     .antMatchers(HttpMethod.GET,"/api/clients/current").hasAuthority("CLIENT")
-                    .antMatchers("/web/pages/admin/**").hasAuthority("ADMIN")
-                    .antMatchers("/web/pages/client/**").hasAuthority("CLIENT");
+                    .antMatchers("/web/pages/client/**","/web/scripts/accounts.js","/web/scripts/account.js","/web/scripts/cards.js","/web/scripts/create-cards.js","/web/client/create-cards.html").hasAuthority("CLIENT")
+                    .antMatchers("/web/pages/admin/**","/web/scripts/**").hasAuthority("ADMIN")
+                    .anyRequest().denyAll()
+            ;
 
             http.formLogin()
                     .usernameParameter("email")

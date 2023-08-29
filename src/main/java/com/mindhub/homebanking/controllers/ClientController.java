@@ -5,9 +5,6 @@ import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
-import com.mindhub.homebanking.utils.RandomNumberGenerator;
-import com.mindhub.homebanking.utils.Verification;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -49,7 +46,7 @@ public class ClientController {
             @RequestParam String email, @RequestParam String password) {
 
 
-        if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty()) {// en caso de que algun campo llegue vacio se develve un ResponseEntity con un mensaje y el http status
+        if (firstName.isBlank() || lastName.isBlank() || email.isBlank() || password.isBlank()) {// en caso de que algun campo llegue vacio se develve un ResponseEntity con un mensaje y el http status
             return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
         }
 

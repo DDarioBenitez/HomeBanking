@@ -59,47 +59,64 @@
 
     <body class="d-flex flex-column" data-bs-theme="ligth" id="body">
         <main
-            class="flex-grow-1 p-2 d-flex flex-column gap-3 align-items-center flex-md-row flex-lg-row justify-content-lg-around"
+            class="flex-grow-1 p-2 d-flex flex-column gap-3 align-items-center flex-lg-wrap flex-lg-row justify-content-lg-around"
             id="app">
-            <div class="card cardS p-2 bg-transparent fw-bold" style="width: 18rem; backdrop-filter: blur(15px);">
+            <div class="card cardS p-2 bg-transparent fw-bold col-4 col-lg-3"
+                style="width: 18rem; backdrop-filter: blur(15px);">
                 <img src="../../images/avatar-femenino.png" class="card-img-top" alt="...">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item bg-transparent fw-bold" style="backdrop-filter: blur(15px);">Nombre:
+                    <li class="list-group-item bg-transparent fw-bold align-self-center"
+                        style="backdrop-filter: blur(15px);">Nombre:
                         {{client.firstName}}</li>
-                    <li class="list-group-item bg-transparent" style="backdrop-filter: blur(15px);">Apellido:
+                    <li class="list-group-item bg-transparent align-self-center" style="backdrop-filter: blur(15px);">
+                        Apellido:
                         {{client.lastName}}</li>
-                    <li class="list-group-item bg-transparent" style="backdrop-filter: blur(15px);">E-mail:
+                    <li class="list-group-item bg-transparent align-self-center" style="backdrop-filter: blur(15px);">
+                        E-mail:
                         {{client.email}}
                     </li>
+                    <template v-if="cards.length<6">
+                        <li class="list-group-item bg-transparent align-self-center">
+                            <button type="button" class="btn btn-primary align-self-center" @click="createdCard"
+                                style="height: 3rem;">Created
+                                New Card</button>
+                        </li>
+                    </template>
                     <li class="list-group-item bg-transparent fs-3" style="backdrop-filter: blur(15px);">
                         <button type="button" @click="logout" class="border-0"><i
                                 class="bi bi-box-arrow-left"></i></button>
                     </li>
                 </ul>
             </div>
-            <template v-for="card of cards">
-                <div class="d-flex flex-column flex-md-row flex-md-wrap gap-3 col-lg-4 col-xl-3 col-xxl-2">
-                    <div :class="setColor(card)+ ' d-flex col-12 position-relative'">
-                        <img src="../../images/pngegg.png" alt="" class="w-100 h-100">
-                        <p class="credit-debit z-3 position-absolute fs-3">{{card.type=='CCREDIT' ? "Credit" : "Debit"}}
-                            Card</p>
-                        <div class="chip z-3 position-absolute"><img src="../../images/chip.png" alt="" class="w-100">
+            <div
+                class="d-flex flex-column flex-md-row flex-md-wrap col-11 col-sm-8 flex-lg-wrap gap-1 col-md-12 col-lg-12 col-xl-9 col-xxl-9 justify-content-around">
+                <template v-for="card of cards">
+                    <div class="d-flex flex-column flex-md-row flex-md-wrap gap-3 col-md-5 col-lg-4 col-xl-4 col-xxl-3">
+                        <div :class="setColor(card)+ ' d-flex col-12 position-relative'">
+                            <img src="../../images/pngegg.png" alt="" class="w-100 h-100">
+                            <p class="credit-debit z-3 position-absolute fs-3">{{card.type=='CCREDIT' ? "Credit" :
+                                "Debit"}}
+                                Card</p>
+                            <div class="chip z-3 position-absolute"><img src="../../images/chip.png" alt=""
+                                    class="w-100">
+                            </div>
+                            <p class="visa z-3 position-absolute fs-3">Visa</p>
+                            <p class="number z-3 position-absolute">{{setNumber(card)}}</p>
+                            <p class="name z-3 position-absolute">{{card.cardHolder}}</p>
+                            <p class="date z-3 position-absolute">{{card.fromDate.slice(2,7)}} /
+                                {{card.truDate.slice(2,7)}}
+                            </p>
                         </div>
-                        <p class="visa z-3 position-absolute fs-3">Visa</p>
-                        <p class="number z-3 position-absolute">{{setNumber(card)}}</p>
-                        <p class="name z-3 position-absolute">{{card.cardHolder}}</p>
-                        <p class="date z-3 position-absolute">{{card.fromDate.slice(2,7)}} / {{card.truDate.slice(2,7)}}
-                        </p>
-                    </div>
-                    <div :class="setColor(card)+ ' d-flex col-12 position-relative'">
-                        <div class="lineContainer col-9 z-3 position-absolute d-flex align-items-center col-xl-8">
-                            <p class="cvv-line col-12"></p>
-                            <p class="cvv"> {{card.cvv}}</p>
+                        <div :class="setColor(card)+ ' d-flex col-12 position-relative'">
+                            <div class="lineContainer col-9 z-3 position-absolute d-flex align-items-center col-xl-8">
+                                <p class="cvv-line col-12"></p>
+                                <p class="cvv"> {{card.cvv}}</p>
+                            </div>
+                            <p class="black-line z-3 position-absolute"></p>
                         </div>
-                        <p class="black-line z-3 position-absolute"></p>
                     </div>
-                </div>
-            </template>
+                </template>
+            </div>
         </main>
 
         <footer
@@ -118,6 +135,8 @@
             crossorigin="anonymous"></script>
         <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="../../scripts/cards.js"></script>
         <script src="../../scripts/theme.js"></script>
 

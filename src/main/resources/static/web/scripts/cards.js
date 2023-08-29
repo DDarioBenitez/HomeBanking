@@ -4,7 +4,8 @@ const cards = createApp({
     data() {
         return {
             client: {},
-            cards: []
+            cards: [],
+            createCard: false,
         }
     },
     created() {
@@ -12,7 +13,7 @@ const cards = createApp({
     },
     methods: {
         loadData() {
-            axios.get("http://localhost:8080/api/clients")
+            axios.get("http://localhost:8080/api/clients/current")
                 .then(data => {
                     this.client = data.data
                     this.cards = data.data.cards;
@@ -21,12 +22,7 @@ const cards = createApp({
                 .catch(error => console.log("ERROR"))
         },
         setNumber(card) {
-            const number = card.number;
-            const aux = [];
-            for (let i = 0; i < number.length; i += 4) {
-                aux.push(number.substring(i, i + 4));
-            }
-            return aux.join(" ")
+            return card.number;
         },
         setColor(card) {
             if (card.color == "TITANIUM") {
@@ -43,6 +39,9 @@ const cards = createApp({
                     window.location.href = "http://localhost:8080/web/pages/public/login.html"
                 })
                 .catch(err => console.log(err))
+        },
+        createdCard() {
+            window.location.href = "http://localhost:8080/web/pages/client/create-cards.html"
         }
     }
 })

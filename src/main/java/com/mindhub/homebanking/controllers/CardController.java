@@ -14,10 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
-import java.util.Set;
-import java.util.stream.Collectors;
 
-import static com.mindhub.homebanking.models.CardColor.*;
 import static com.mindhub.homebanking.models.CardType.CCREDIT;
 import static com.mindhub.homebanking.models.CardType.CDEBIT;
 import static com.mindhub.homebanking.utils.RandomNumberGenerator.*;
@@ -34,53 +31,28 @@ public class CardController {
     private ClientRepository clientRepository;
 
     @PostMapping("/clients/current/cards")
-    public ResponseEntity<Object> createdCard(@RequestParam String type, @RequestParam String color,Authentication authentication) {
-            if (authentication!=null){
-                Client client= clientRepository.findByEmail(authentication.getName());
-                Set<Card> allCards= client.getCards();
-                if (allCards.size()<6){
-                    if (type.equals("CREDIT") || type.equals("DEBIT")){
-                        CardType cardType= type.equals("CREDIT")? CCREDIT:CDEBIT;
-                        Set<Card> cardSet= client.getCards().stream().filter(card -> card.getType()==cardType).collect(Collectors.toSet());
-                        if (cardSet.size()<3){
-                            if (color.equals("GOLD")|| color.equals( "SILVER") || color.equals("TITANIUM")){
-                                CardColor cardColor;
-                                if (color.equals("GOLD")){
-                                    cardColor=GOLD;
-                                } else if (color.equals("SILVER")) {
-                                    cardColor=SILVER;
-                                } else if (color.equals("TITANIUM")) {
-                                    cardColor=TITANIUM;
-                                } else {
-                                    cardColor = null;
-                                }
-                                Set<Card> repeatColor= cardSet.stream().filter(card -> card.getColor()==cardColor).collect(Collectors.toSet());
-                                if (repeatColor.size()<1){
-                                    int cvv= cvvGenerator();
-                                    String numberCard= cardType == CCREDIT ? creditNumberGenerator(): debitNumberGenerator();
-                                    String cardHolder= client.getFirstName()+" "+ client.getLastName();
-                                    Card newCard= new Card(cardType, cardColor, LocalDate.now(), cvv, numberCard,cardHolder);
-                                    client.addCard(newCard);
-                                    cardRepository.save(newCard);
-                                    clientRepository.save(client);
-                                    return new ResponseEntity<>("Card creada con exito", HttpStatus.CREATED);
-                                }else{
-                                    return new ResponseEntity<>("Ya posee una card con este color", HttpStatus.FORBIDDEN);
-                                }
-                            }else{
-                                return new ResponseEntity<>("Color incorrecto", HttpStatus.FORBIDDEN);
-                            }
-                        }else {
-                            return new ResponseEntity<>("Numero maximo de cards alcanzado de este tipo", HttpStatus.FORBIDDEN);
-                        }
-                }else {
-                        return new ResponseEntity<>("Tipo incorrecto", HttpStatus.FORBIDDEN);
-                    }
-                }else {
-                    return new ResponseEntity<>("Maximo de cards alcanzado", HttpStatus.FORBIDDEN);
+    public ResponseEntity<Object> createdCard(@RequestParam String type, @RequestParam String color,Authentication authentication) {//servlet para reguistrar una nueva tarjeta, pide por parametros el typo y el color ademas del usuario autenticado
+        if (authentication != null) {//compruebo que el usuario estee autenticado
+            Client client = clientRepository.findByEmail(authentication.getName());//busco en la base de datos el cliente en base a su email y lo guardo en una variable
+            CardType cardType = CardType.valueOf(type);
+            CardColor cardColor=CardColor.valueOf(color);
+            if (cardRepository.findByTypeAndColorAndClient(cardType, cardColor, client)==null) {//compruebo que el cliente tenga menos del numero maximo de tarjeta
+                int cvv = cvvGenerator();//genero el cvv
+                String numberCard = cardType == CCREDIT ? creditNumberGenerator() : debitNumberGenerator();//genero el numero de la tarjeta en base al tipo de tarjeta que quiere crear el usuario
+                while (cardRepository.findByNumber(numberCard) != null) {// verifico que el numero no estee ya reguistrado en la base de datos
+                    numberCard = cardType == CCREDIT ? creditNumberGenerator() : debitNumberGenerator();//en caso que exista una tarjeta con el numero generado aleatoriamente genera un nuevo numero
                 }
-            }else {
-                return new ResponseEntity<>("Sesion expirada", HttpStatus.FORBIDDEN);
+                String cardHolder = client.getFirstName() + " " + client.getLastName();//creo el nombre que va a ir impreso en la tarjeta y lo guardo en una variable
+                Card newCard = new Card(cardType, cardColor, LocalDate.now(), cvv, numberCard, cardHolder);// creo una nueva tarjeta
+                client.addCard(newCard);//agrego la tarjeta al cliente
+                cardRepository.save(newCard);//guardo la tarjeta
+                clientRepository.save(client);//guardo el cliente
+                return new ResponseEntity<>("Card created successfully", HttpStatus.CREATED);//retorno un mensaje de exito y el status created
+            } else {//si ya tiene el maximo numero de tarjetas devuevolvo mensaje mas status
+                return new ResponseEntity<>("Can't create another card", HttpStatus.FORBIDDEN);
             }
+        }else {
+            return new ResponseEntity<>("Session expired",HttpStatus.FORBIDDEN);
+        }
     }
 }
