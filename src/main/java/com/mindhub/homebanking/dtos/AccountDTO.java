@@ -12,7 +12,7 @@ public class AccountDTO {
     private long id;
     private String number;
     private LocalDate creationDate;
-    private int balance;
+    private double balance;
     private List<TransactionDTO> transactions;
 
     public AccountDTO(Account account){
@@ -37,7 +37,7 @@ public class AccountDTO {
     }
 
 
-    public int getBalance() {
+    public double getBalance() {
         return balance;
     }
 

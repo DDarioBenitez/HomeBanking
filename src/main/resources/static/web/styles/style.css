@@ -35,7 +35,7 @@ body {
   position: relative;
   display: inline-block;
   width: 60px;
-  height: 34px;
+  height: 30px;
   margin: 10px;
 }
 
@@ -59,14 +59,14 @@ body {
 .custom-switch .active:before {
   position: absolute;
   content: "";
-  height: 26px;
-  width: 26px;
+  height: 22px;
+  width: 22px;
   left: 4px;
   bottom: 4px;
   background-color: white;
   -webkit-transition: 0.4s;
   transition: 0.4s ease;
-  border-radius: 50%;
+  border-radius: 50% 50% 50% 50%;
 }
 
 .custom-switch input:checked + .active {
@@ -227,6 +227,19 @@ body {
   width: 25rem;
   backdrop-filter: blur(5px);
 }
+.main-div {
+  min-height: 60vh;
+  backdrop-filter: blur(5px);
+
+  box-shadow: 0px 0px 22px 8px rgba(138, 69, 133, 0.39);
+  -webkit-box-shadow: 0px 0px 22px 8px rgba(138, 69, 133, 0.39);
+  -moz-box-shadow: 0px 0px 22px 8px rgba(138, 69, 133, 0.39);
+}
+.inp-div input[type="text"]:hover {
+  box-shadow: 0px 0px 22px 8px rgba(138, 69, 133, 0.39);
+  -webkit-box-shadow: 0px 0px 22px 8px rgba(138, 69, 133, 0.39);
+  -moz-box-shadow: 0px 0px 22px 8px rgba(138, 69, 133, 0.39);
+}
 
 /* Responsive */
 
@@ -242,11 +255,20 @@ body {
   .blur {
     width: 19rem;
   }
+  .main-div {
+    height: auto;
+  }
 }
 
 @media screen and (max-width: 767px) {
   .img-login {
     display: none;
     transition: 0.3s ease;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 867px) {
+  .main-div {
+    height: auto;
   }
 }
