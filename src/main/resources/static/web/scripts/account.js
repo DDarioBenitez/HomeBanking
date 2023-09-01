@@ -19,6 +19,8 @@ const transactions = createApp({
             axios.get("http://localhost:8080/api/clients/current")
                 .then(data => {
                     this.client = data.data
+                    console.log(this.client);
+                    console.log(this.client.accounts.find(acc => acc.number == "VIN001"));
                 })
                 .catch(error => console.log("ERROR"))
         },
@@ -33,7 +35,11 @@ const transactions = createApp({
                 .then(response => {
                     this.account = response.data
                     this.transactions = [...response.data.transactions];
+                    this.transactions = this.transactions.sort((a, b) => b.id - a.id);
                     console.log(this.transactions.sort((a, b) => b.id - a.id));
+                    console.log(response.data);
+
+                    console.log(this.account);
                 })
                 .catch(error => console.log("ERROR"))
         },

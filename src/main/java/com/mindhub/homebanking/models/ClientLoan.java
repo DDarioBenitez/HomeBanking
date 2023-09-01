@@ -23,7 +23,7 @@ public class ClientLoan {
 
     }
 
-    public ClientLoan(float amount,int payment){
+    public ClientLoan(double amount,int payment){
         this.amount=amount;
         this.payment=payment;
     }

@@ -4,20 +4,15 @@ import java.util.Random;
 import java.util.StringJoiner;
 
 public class RandomNumberGenerator {
-    public static String accountNumberGenerator(){ // crea un numero random
-
+    public static String accountNumberGenerator(){// crea un numero random
         // Genera un número random entre 0 (incluido) y 1 (excluido)
         double random = Math.random();
-
         // Multiplica el número random por 10^8 para obtener 8 dígitos decimales
         random *= 100000000;
-
         // Convierte el resultado en un número entero redondeando hacia abajo
         int entero = (int) Math.floor(random);
-
         // Convierte el número entero en una cadena de texto
         StringBuilder cadena = new StringBuilder(Integer.toString(entero));
-
         // Si la cadena tiene menos de 8 dígitos, agrega ceros a la izquierda hasta que tenga 8 dígitos
         while (cadena.length() < 8) {
             cadena.insert(0, "0");
