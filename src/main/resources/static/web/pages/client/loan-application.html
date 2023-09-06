@@ -4,11 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Account</title>
+    <title>Loan Application</title>
     <link rel="shortcut icon" href="../../images/urbanbank-website-favicon-color.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     </link>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../../styles/style.css">
 </head>
@@ -36,7 +37,7 @@
                                     class="bi bi-credit-card-fill"></i> Cards</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="./loan-application.html">| </svg> <i
+                            <a class="nav-link active" aria-current="page" href="#">| </svg> <i
                                     class="bi bi-piggy-bank"></i> Loans</a>
                         </li>
                         <li class="nav-item">
@@ -44,8 +45,7 @@
                                     class="bi bi-arrow-left-right"></i> Transactions</a>
                         </li>
                         <li class="nav-item">
-                            <button class="nav-link active" @click="logout">| <i class="bi bi-box-arrow-right"></i>
-                                Logout</button>
+                            <a href="" class="nav-link active">| <i class="bi bi-box-arrow-right"></i> Logout</a>
                         </li>
                     </ul>
 
@@ -60,70 +60,67 @@
             </div>
         </nav>
     </header>
-    <main class="flex-grow-1 p-2 d-flex flex-column gap-3 align-items-center flex-lg-row justify-content-lg-around">
-        <div class="card cardS p-2 bg-transparent col-lg-4" style="width: 18rem; backdrop-filter: blur(15px);">
-            <img src="../../images/avatar-femenino.png" class="card-img-top" alt="...">
-            <ul class="list-group list-group-flush fw-bold">
-                <li class="list-group-item bg-transparent" style="backdrop-filter: blur(15px);">Nombre:
-                    {{client.firstName}}</li>
-                <li class="list-group-item bg-transparent" style="backdrop-filter: blur(15px);">Apellido:
-                    {{client.lastName}}</li>
-                <li class="list-group-item bg-transparent" style="backdrop-filter: blur(15px);">E-mail:
-                    {{client.email}}
-                </li>
-            </ul>
-        </div>
-        <div
-            class="d-flex justify-content-around flex-column flex-md-wrap flex-md-row gap-3 align-items-center col-12 col-lg-4">
-            <template v-for="account of accounts">
-                <div class="card col-12 bg-transparent text-lg-center col-md-5 col-lg-10"
-                    style="backdrop-filter: blur(15px);">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item bg-transparent" style="backdrop-filter: blur(15px);">Number of
-                            Account: {{account.number}}</li>
-                        <li class="list-group-item bg-transparent" style="backdrop-filter: blur(15px);">Balance:
-                            {{account.balance}}</li>
-                        <li class="list-group-item bg-transparent" style="backdrop-filter: blur(15px);">Creation
-                            Date:
-                            {{account.creationDate}}</li>
-                    </ul>
-                    <a v-bind:href="'./account.html?id='+account.id"
-                        class="d-flex justify-content-center text-decoration-none"><button type="button"
-                            class="css-button-gradient--2">View
-                            More</button></a>
-                </div>
-            </template>
-            <template v-if="accounts.length<3">
-                <button type="button" class="btn btn-info" @click="createdAccount">Add new account</button>
+    <main class="d-flex flex-grow-1 col-11 align-items-center flex-column justify-content-center p-4">
+        <h1>Welcome <span v-cloak>{{client.firstName}}</span></h1>
+        <div class="d-flex flex-wrap pb-3 gap-2">
+            <template v-for="loan of clientLoans">
+                <section class="card bg-transparent text-center" style="width: 18rem;  backdrop-filter: blur(5px)">
+                    <h2>{{loan.name}}</h2>
+                    <h5>{{formatAmount(loan.amount)}}</h5>
+                    <h5>Payment: {{loan.payment}}</h5>
+                </section>
             </template>
         </div>
-        <div class="d-flex justify-content-around flex-column gap-3 align-items-center col-11 col-lg-4">
-            <table class="col-12">
-                <thead class=" p-2 bg-transparent fw-bold border border-black">
-                    <tr>
-                        <th class="text-center" colspan="4">Loans</th>
-                    </tr>
-                    <tr>
-                        <td class="p-1 border border-black">Name</td>
-                        <td class="p-1 border border-black">Amount</td>
-                        <td class="p-1 border border-black">Payment</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <template v-for="loan of loans">
-                        <tr>
-                            <td class="p-1 border border-black">{{loan.name}}</td>
-                            <td class="p-1 border border-black">{{loan.amount.toLocaleString()}}</td>
-                            <td class="p-1 border border-black">{{loan.payment}}</td>
-                        </tr>
+        <div class=" d-flex col-11 flex-column form-apply rounded-4 col-md-11 pb-4 flex-md-row p-md-4
+            justify-content-center">
+            <div class="col-12 col-md-7 align-self-center col-xl-7 col-xxl-7 d-flex justify-content-center">
+                <img src="../../images/personal-finance-animate.svg" alt="img" class="h-100 col-10">
+            </div>
+            <section
+                class="col-12 rounded d-flex flex-column align-items-center gap-3 justify-content-center col-md-5 col-xl-5 col-xxl-5">
+                <h2>Apply for Loan</h2>
+                <form class="d-flex gap-1 flex-column col-11 col-xl-9 col-xxl-8">
+                    <label for="name" class="form-label">Seleect Loan</label>
+                    <select v-model="idLoanSelect" name="name" id="name" class="form-select" @change="getPayment">
+                        <option value="">Select Loan</option>
+                        <template v-for="loan of loans">
+                            <option :value="loan.id">{{loan.name}}</option>
+                        </template>
+                    </select>
+                    <label for="amount">Select Amount</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-danger"><i class="bi bi-currency-dollar"></i></span><input
+                            type="text" id="amount" v-model="amount" class="form-control"
+                            :placeholder="'Max amount: '+ formatAmount(maxAmount)">
+                    </div>
+                    <label for="payment">Select Payment</label>
+                    <select v-model="paymentSelect" name="payment" id="payment" class="form-select">
+                        <option value="">Select Payment</option>
+                        <template v-for="payment of paymentOption">
+                            <option :value="payment">{{payment}}</option>
+                        </template>
+                    </select>
+                    <label for="account">Select Account</label>
+                    <select v-model="numberAccount" name="account" id="account" class="form-select">
+                        <option value="">Select Account</option>
+                        <template v-for="account of accounts">
+                            <option :value="account.number">{{account.number}}</option>
+                        </template>
+                    </select>
+                    <br>
+                    <template v-if="clientLoans<3">
+                        <button @click="alert" class="btn btn-success">Apply</button>
                     </template>
-                </tbody>
-            </table>
+                    <template v-else>
+                        <button type="button" class="btn btn-success disabled">Apply</button>
+                    </template>
+                </form>
+            </section>
         </div>
     </main>
 
     <footer
-        class="footer col-12 p-1 d-flex flex-column-reverse align-items-center flex-lg-row justify-content-lg-around text-lg-center"
+        class="footer p-1 col-12 d-flex flex-column-reverse align-items-center flex-lg-row justify-content-lg-around text-lg-center"
         id="foot">
         <h6 class="p-1 m-lg-0"><i class=" bi bi-c-circle"></i> 2023: All rights reserved</h6>
         <div class="ps-2 pe-2">
@@ -133,14 +130,15 @@
             <a href=""><i class="bi bi-instagram fs-1"></i></a>
         </div>
     </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
         crossorigin="anonymous"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="../../scripts/accounts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../../scripts/loan-application.js"></script>
     <script src="../../scripts/theme.js"></script>
-
 </body>
 
 </html>

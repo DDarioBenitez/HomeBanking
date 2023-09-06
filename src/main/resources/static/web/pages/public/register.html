@@ -17,7 +17,7 @@
     <header class="navbar-expand-lg col-12">
         <nav class="navbar p-0">
             <div class="container-fluid nav p-2 align-items-center" id="head">
-                <div class="col-9 col-lg-5">
+                <div class="col-8 col-md-6 col-lg-4 col-xxl-3">
                     <img src="../../images/logo-azul.png" alt="" class="w-75" id="logoNav">
                 </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -56,17 +56,18 @@
             class="formLoginRegister container d-flex flex-column form-login bg-transparent blur justify-content-around text-center rounded  gap-3 col-8 col-lg-4">
             <h1>Login</h1>
             <form class="col-12">
-                <label for="firstName" class="text-start col-12 p-2 fw-bold">First Name</label>
+                <label for="firstName" class="text-center col-12 p-2 fw-bold">First Name</label>
                 <input v-model="firstName" type="text" name="firstName" id="firstName"
-                    class="bg-transparent col-12 rounded">
-                <label for="lastName" class=" text-start col-12 p-2 fw-bold">Last Name</label>
+                    class="bg-transparent col-12 rounded col-lg-7">
+                <label for="lastName" class=" text-center col-12 p-2 fw-bold">Last Name</label>
                 <input v-model="lastName" type="text" name="lastName id=" lastName
-                    class="bg-transparent col-12 rounded">
-                <label for="userName" class="text-start col-12 p-2 fw-bold">E-mail</label>
-                <input v-model="email" type="email" name="userName" id="userName" class="bg-transparent col-12 rounded">
-                <label for="password" class="text-start col-12 p-2 fw-bold">Password</label>
+                    class="bg-transparent col-12 rounded col-lg-7">
+                <label for="userName" class="text-center col-12 p-2 fw-bold">E-mail</label>
+                <input v-model="email" type="email" name="userName" id="userName"
+                    class="bg-transparent col-12 rounded col-lg-7">
+                <label for="password" class="text-center col-12 p-2 fw-bold">Password</label>
                 <input v-model="password" type="password" name="password" id="password"
-                    class="bg-transparent col-12 rounded">
+                    class="bg-transparent col-12 rounded col-lg-7">
             </form>
             <button @click="register" type="button" class="col-5 align-self-center rounded btn btn-success">Sing
                 Up</button>

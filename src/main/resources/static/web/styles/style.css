@@ -34,8 +34,8 @@ body {
 .custom-switch {
   position: relative;
   display: inline-block;
-  width: 60px;
-  height: 30px;
+  width: 50px;
+  height: 25px;
   margin: 10px;
 }
 
@@ -53,14 +53,14 @@ body {
   background-color: #d3e1a7;
   -webkit-transition: 0.4s;
   transition: 0.4s ease;
-  border-radius: 34px;
+  border-radius: 50px;
 }
 
 .custom-switch .active:before {
   position: absolute;
   content: "";
-  height: 22px;
-  width: 22px;
+  height: 18px;
+  width: 18px;
   left: 4px;
   bottom: 4px;
   background-color: white;
@@ -218,13 +218,18 @@ body {
 .form-login {
   height: 60vh !important;
 }
-.formLoginRegister {
+.form-apply {
+  height: 70vh;
+  backdrop-filter: blur(5px);
+}
+.formLoginRegister,
+.form-apply {
   box-shadow: 0px 0px 22px 8px rgba(138, 69, 133, 0.39);
   -webkit-box-shadow: 0px 0px 22px 8px rgba(138, 69, 133, 0.39);
   -moz-box-shadow: 0px 0px 22px 8px rgba(138, 69, 133, 0.39);
 }
 .blur {
-  width: 25rem;
+  min-width: 25rem;
   backdrop-filter: blur(5px);
 }
 .main-div {
@@ -258,17 +263,27 @@ body {
   .main-div {
     height: auto;
   }
+  .form-apply {
+    height: auto !important;
+  }
 }
 
 @media screen and (max-width: 767px) {
-  .img-login {
+  .img-login,
+  .img-apply {
     display: none;
     transition: 0.3s ease;
+  }
+  .form-apply {
+    height: auto !important;
   }
 }
 
 @media screen and (min-width: 768px) and (max-width: 867px) {
   .main-div {
     height: auto;
+  }
+  .form-apply {
+    height: auto !important;
   }
 }

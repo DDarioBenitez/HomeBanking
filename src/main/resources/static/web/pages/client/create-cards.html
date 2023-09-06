@@ -14,11 +14,11 @@
     <link rel="stylesheet" href="../../styles/style.css">
 </head>
 
-<body class="d-flex flex-column align-items-center" data-bs-theme="ligth" id="body">
+<body class="d-flex flex-column align-items-center" data-bs-theme="ligth" id="app">
     <header class="navbar-expand-lg col-12">
         <nav class="navbar p-0">
             <div class="container-fluid nav p-2 align-items-center" id="head">
-                <div class="col-9 col-lg-5">
+                <div class="col-8 col-md-6 col-lg-4 col-xxl-3">
                     <img src="../../images/logo-azul.png" alt="" class="w-75" id="logoNav">
                 </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -29,16 +29,24 @@
                 <div class="collapse navbar-collapse justify-content-end gap-2 pe-2" id="navbarSupportedContent">
                     <ul class="navbar-nav mb-2 mb-lg-0  text-center">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="./accounts.html">Account</a>
+                            <a class="nav-link active" aria-current="page" href="./accounts.html"> <i
+                                    class="bi bi-cash-stack"></i> Account</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="./cards.html">Cards</a>
+                            <a class="nav-link active" aria-current="page" href="./cards.html">| <i
+                                    class="bi bi-credit-card-fill"></i> Cards</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Loans</a>
+                            <a class="nav-link active" aria-current="page" href="./loan-application.html">| </svg> <i
+                                    class="bi bi-piggy-bank"></i> Loans</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="./transaction.html">Transactions</a>
+                            <a class="nav-link active" aria-current="page" href="./transaction.html">| <i
+                                    class="bi bi-arrow-left-right"></i> Transactions</a>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link active" @click="logout">| <i class="bi bi-box-arrow-right"></i>
+                                Logout</button>
                         </li>
                     </ul>
 
@@ -57,19 +65,19 @@
         <div
             class="formLoginRegister container d-flex flex-column form-login bg-transparent blur justify-content-around text-center rounded  gap-3 col-8 col-lg-4">
             <h1>Create Card</h1>
-            <form class="col-12">
-                <label for="type" class="text-start col-12 p-2 fw-bold bg-transparent">Type Card</label>
+            <form class="col-12 col-lg-7 align-self-center">
+                <label for="type" class="text-center col-12 p-2 fw-bold bg-transparent">Type Card</label>
                 <br>
                 <span class="d-none">Error</span>
-                <select v-model="type" name="type" id="type" class="form-select">
+                <select v-model="type" name="type" id="type" class="form-select col-lg-7">
                     <option value="">Type</option>
                     <option value="CCREDIT">CREDIT</option>
                     <option value="CDEBIT">CEBIT</option>
                 </select>
                 <br>
-                <label for="color" class="text-start col-12 p-2 fw-bold bg-transparent">Color</label>
+                <label for="color" class="text-center col-12 p-2 fw-bold bg-transparent">Color</label>
                 <br>
-                <select v-model="color" name="color" id="color" class="form-select">
+                <select v-model="color" name="color" id="color" class="form-select col-lg-7">
                     <option value="">Color</option>
                     <option value="GOLD">GOLD</option>
                     <option value="SILVER">SILVER</option>

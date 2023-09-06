@@ -41,7 +41,7 @@ const transactions = createApp({
 
                     console.log(this.account);
                 })
-                .catch(error => console.log("ERROR"))
+                .catch(error => console.log(error))
         },
         logout() {
             axios.post("http://localhost:8080/api/logout")

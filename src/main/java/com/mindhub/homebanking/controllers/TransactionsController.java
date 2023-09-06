@@ -7,6 +7,9 @@ import com.mindhub.homebanking.models.TransactionType;
 import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
 import com.mindhub.homebanking.repositories.TransactionRepository;
+import com.mindhub.homebanking.service.AccountService;
+import com.mindhub.homebanking.service.ClientService;
+import com.mindhub.homebanking.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,11 +26,11 @@ import java.time.LocalDateTime;
 @RequestMapping("/api")
 public class TransactionsController {
     @Autowired
-    private AccountRepository accountRepository;
+    private AccountService accountService;
     @Autowired
-    private TransactionRepository transactionRepository;
+    private TransactionService transactionService;
     @Autowired
-    private ClientRepository clientRepository;
+    private ClientService clientService;
 
     @Transactional
     @PostMapping("/transactions")
@@ -46,9 +49,9 @@ public class TransactionsController {
                 return new ResponseEntity<>("The origin account cannot be empty", HttpStatus.FORBIDDEN);
             }
 
-            Client clientOrigin= clientRepository.findByEmail(authentication.getName());
-            Account accountOrigin= accountRepository.findByNumberAndClient(originAccount,clientOrigin);
-            Account accountDestiny= accountRepository.findByNumber(destinyAccount);
+            Client clientOrigin= clientService.findByEmail(authentication.getName());
+            Account accountOrigin= accountService.findByNumberAndClient(originAccount,clientOrigin);
+            Account accountDestiny= accountService.findByNumber(destinyAccount);
 
             if (accountOrigin==null){
                 return new ResponseEntity<>("cuenta no existe", HttpStatus.FORBIDDEN);
@@ -62,15 +65,15 @@ public class TransactionsController {
 
             Transaction debitTransaction=new Transaction(TransactionType.DEBIT, amount,description, LocalDateTime.now());
             Transaction creditTransaction= new Transaction(TransactionType.CREDIT, amount, description,LocalDateTime.now());
-            transactionRepository.save(debitTransaction);
-            transactionRepository.save(creditTransaction);
+            transactionService.saveTransaction(debitTransaction);
+            transactionService.saveTransaction(creditTransaction);
 
             accountOrigin.setBalance(accountOrigin.getBalance()-amount);
             accountDestiny.setBalance(accountDestiny.getBalance()+amount);
             accountOrigin.addTransactions(debitTransaction);
             accountDestiny.addTransactions(creditTransaction);
-            accountRepository.save(accountOrigin);
-            accountRepository.save(accountDestiny);
+            accountService.saveAccount(accountOrigin);
+            accountService.saveAccount(accountDestiny);
 
             return new ResponseEntity<>("Success", HttpStatus.CREATED);
         }else {

@@ -18,7 +18,7 @@
     <header class="navbar-expand-lg col-12">
         <nav class="navbar p-0">
             <div class="container-fluid nav p-2 align-items-center" id="head">
-                <div class="col-9 col-lg-5">
+                <div class="col-8 col-md-6 col-lg-4 col-xxl-3">
                     <img src="../../images/logo-azul.png" alt="" class="w-75" id="logoNav">
                 </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -57,14 +57,14 @@
             class="formLoginRegister container d-flex flex-column form-login bg-transparent blur justify-content-around text-center rounded  gap-3 col-8 col-lg-4">
             <h1>Login</h1>
             <form class="col-12 ">
-                <label for="userName" class="text-start col-12 p-2 fw-bold bg-transparent"></i>User Name</label>
+                <label for="userName" class="text-center col-12 p-2 fw-bold bg-transparent"></i>User Name</label>
                 <br>
                 <span class="d-none">Error</span>
                 <input v-model="userName" type="email" name="userName" id="userName"
-                    class="bg-transparent col-12 rounded" placeholder="example@mail.com">
-                <label for="password" class="text-start col-12 p-2 fw-bold">Password</label>
+                    class="bg-transparent col-12 rounded col-lg-7 p-1" placeholder="example@mail.com">
+                <label for="password" class="text-center col-12 p-2 fw-bold">Password</label>
                 <input v-model="password" type="password" name="password" id="password"
-                    class="bg-transparent col-12 rounded">
+                    class="bg-transparent col-12 rounded col-lg-7 p-1">
             </form>
             <button type="button" @click="login" class="col-5 align-self-center rounded btn btn-success">Sign
                 In</button>

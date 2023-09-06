@@ -36,11 +36,18 @@ const transfer = createApp({
         sendTransfer() {
             axios.post("http://localhost:8080/api/transactions", `amount=${this.amount.replace(",", ".")}&description=${this.description}&originAccount=${this.numberOrginAcc}&destinyAccount=${this.numberDestinyAcc}`)
                 .then(response => {
-                    window.location.reload()
+                    let aux = Swal.fire({
+                        title: 'Saved!',
+                        icon: 'success',
+
+                    }).then(response => {
+                        window.location.reload()
+                    })
+                    aux()
                 })
                 .catch(err => {
                     console.error(err)
-                    Swale.fire('Transfer cancel', ' ', 'info')
+                    Swale.fire('There was an error, try again', ' ', 'info')
                 })
         },
         alert() {
@@ -55,7 +62,6 @@ const transfer = createApp({
                 .then(response => {
                     if (response.isConfirmed) {
                         this.sendTransfer()
-                        Swal.fire('Saved!', '', 'success', 5000)
                     } else {
                         Swale.fire('Transfer cancel', ' ', 'info')
                     }
@@ -63,7 +69,14 @@ const transfer = createApp({
                 .catch(err => {
                     Swal.fire('Transfer cancel', ' ', 'info')
                 })
-        }
+        },
+        logout() {
+            axios.post("http://localhost:8080/api/logout")
+                .then(response => {
+                    window.location.href = "http://localhost:8080/web/pages/public/login.html"
+                })
+                .catch(err => console.log(err))
+        },
     },
     computed: {
         showMyAcc() {
