@@ -60,7 +60,7 @@
             </div>
         </nav>
     </header>
-    <main class="d-flex flex-grow-1 col-11 align-items-center flex-column justify-content-center p-4">
+    <main v-cloak class="d-flex flex-grow-1 col-12 align-items-center flex-column justify-content-center p-3 text">
         <h1>Welcome <span v-cloak>{{client.firstName}}</span></h1>
         <div class="d-flex flex-wrap pb-3 gap-2">
             <template v-for="loan of clientLoans">
@@ -87,7 +87,6 @@
                             <option :value="loan.id">{{loan.name}}</option>
                         </template>
                     </select>
-                    <label for="amount">Select Amount</label>
                     <div class="input-group">
                         <span class="input-group-text bg-danger"><i class="bi bi-currency-dollar"></i></span><input
                             type="text" id="amount" v-model="amount" class="form-control"
@@ -108,7 +107,7 @@
                         </template>
                     </select>
                     <br>
-                    <template v-if="clientLoans<3">
+                    <template v-if="clientLoans.length<3">
                         <button @click="alert" class="btn btn-success">Apply</button>
                     </template>
                     <template v-else>
@@ -124,10 +123,10 @@
         id="foot">
         <h6 class="p-1 m-lg-0"><i class=" bi bi-c-circle"></i> 2023: All rights reserved</h6>
         <div class="ps-2 pe-2">
-            <a href=""><i class="bi bi-facebook fs-1"></i></a>
-            <a href=""><i class="bi bi-whatsapp fs-1"></i></i></a>
-            <a href=""><i class="bi bi-twitter fs-1"></i></a>
-            <a href=""><i class="bi bi-instagram fs-1"></i></a>
+            <a href="" class="redes"><i class="bi bi-facebook fs-1"></i></a>
+            <a href="" class="redes"><i class="bi bi-whatsapp fs-1"></i></i></a>
+            <a href="" class="redes"><i class="bi bi-twitter fs-1"></i></a>
+            <a href="" class="redes"><i class="bi bi-instagram fs-1"></i></a>
         </div>
     </footer>
 

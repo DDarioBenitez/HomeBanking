@@ -60,13 +60,14 @@
             </div>
         </nav>
     </header>
-    <main class="flex-grow-1 p-2 d-flex flex-column gap-3 align-items-center flex-lg-row justify-content-lg-around">
-        <div class="card cardS p-2 bg-transparent fw-bold" style="width: 18rem; backdrop-filter: blur(15px);">
+    <main
+        class="flex-grow-1 col-12 p-2 d-flex flex-column gap-3 align-items-center flex-lg-row justify-content-lg-around text">
+        <div class="card cardS p-2 bg-transparent " style="width: 18rem; backdrop-filter: blur(15px);">
             <img src="../../images/avatar-femenino.png" class="card-img-top" alt="...">
             <ul class="list-group list-group-flush">
                 <li class="list-group-item bg-transparent fw-bold" style="backdrop-filter: blur(15px);">Nombre:
                     {{client.firstName}}</li>
-                <li class="list-group-item bg-transparent" style="backdrop-filter: blur(15px);">Apellido:
+                <li class="list-group-item bg-transparent fw-bold" style="backdrop-filter: blur(15px);">Apellido:
                     {{client.lastName}}</li>
                 <li class="list-group-item bg-transparent" style="backdrop-filter: blur(15px);">E-mail:
                     {{client.email}}
@@ -78,7 +79,7 @@
         </div>
         <div class="d-flex justify-content-around flex-column gap-3 align-items-center col-12 col-lg-7">
             <table class="col-12">
-                <thead class="p-2 bg-transparent fw-bold border border-black">
+                <thead class="p-2 bg-transparent border border-black">
                     <tr>
                         <th class="text-center" colspan="4">Transactions Resume</th>
                     </tr>

@@ -54,13 +54,16 @@ public class TransactionsController {
             Account accountDestiny= accountService.findByNumber(destinyAccount);
 
             if (accountOrigin==null){
-                return new ResponseEntity<>("cuenta no existe", HttpStatus.FORBIDDEN);
+                return new ResponseEntity<>("Account does not exist", HttpStatus.FORBIDDEN);
             }
             if (accountOrigin.getBalance()<amount){
-                return new ResponseEntity<>("El monto supera el balance actual", HttpStatus.FORBIDDEN);
+                return new ResponseEntity<>("The amount exceeds the current balance", HttpStatus.FORBIDDEN);
             }
             if (accountOrigin.equals(accountDestiny)){
-                return new ResponseEntity<>("No se pueden hacer transacciones entre dos cuentas iguales", HttpStatus.FORBIDDEN);
+                return new ResponseEntity<>("Transactions cannot be made between two identical accounts", HttpStatus.FORBIDDEN);
+            }
+            if (accountDestiny == null){
+                return new ResponseEntity<>("Destination account does not exist", HttpStatus.FORBIDDEN);
             }
 
             Transaction debitTransaction=new Transaction(TransactionType.DEBIT, amount,description, LocalDateTime.now());

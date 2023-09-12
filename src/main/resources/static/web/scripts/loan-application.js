@@ -49,8 +49,13 @@ const loans = createApp({
                 })
         },
         getPayment() {
-            this.paymentOption = [...this.loans.find(loan => loan.id === this.idLoanSelect).payment]
-            this.getMaxAmount()
+            console.log(this.idLoanSelect);
+            if (this.idLoanSelect == 0) {
+                this.paymentOption = ""
+            } else {
+                this.paymentOption = [...this.loans.find(loan => loan.id === this.idLoanSelect).payment]
+                this.getMaxAmount()
+            }
             console.log(this.paymentOption);
         },
         getMaxAmount() {

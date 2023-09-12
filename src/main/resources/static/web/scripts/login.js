@@ -14,14 +14,27 @@ const login = createApp({
         login() {
             axios.post("/api/login", `email=${this.userName}&password=${this.password}`)
                 .then(response => {
+                    Swal.fire({
+                        icon: 'success',
+                        text: 'Sucess Login',
+                        showConfirmButton: false,
+                    })
                     if (this.userName.includes("admin")) {
-                        window.location.href = "http://localhost:8080/web/pages/admin/manager.html"
+                        setTimeout(() => {
+                            window.location.href = "http://localhost:8080/web/pages/admin/manager.html";
+                        }, 2000);
                     } else {
-                        window.location.href = "http://localhost:8080/web/pages/client/accounts.html"
+                        setTimeout(() => {
+                            window.location.href = "http://localhost:8080/web/pages/client/accounts.html";
+                        }, 2000);
                     }
                 })
                 .catch(error => {
-                    window.alert("Password or User Name incorrect, try again.")
+                    Swal.fire({
+                        icon: 'error',
+                        text: 'Password or User Name incorrect, try again.',
+                        showConfirmButton: false,
+                    })
                 })
         }
     }

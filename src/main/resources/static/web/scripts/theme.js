@@ -1,4 +1,4 @@
-const body = document.getElementById("body")
+const body = document.getElementById("app")
 const foot = document.getElementById("foot")
 const head = document.getElementById("head")
 const img = document.getElementById("logoNav")

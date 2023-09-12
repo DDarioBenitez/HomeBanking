@@ -49,33 +49,33 @@ public class LoansController {
             return new ResponseEntity<>("Session Expired", HttpStatus.FORBIDDEN);
         }
         if(loanApplicationDTO.getId()<=0){
-            return new ResponseEntity<>("La cantidad de cuotas es incorrecta o esta vacio", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("The number of installments is incorrect or empty", HttpStatus.FORBIDDEN);
         }
         if(loanApplicationDTO.getNumberAccount().isBlank()){
-            return new ResponseEntity<>("El numero de cuenta no puede estar vacio", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("The account number cannot be empty", HttpStatus.FORBIDDEN);
         }
         if(loanApplicationDTO.getAmount()<=0){
-            return new ResponseEntity<>("El monto no puede ser 0 o menor", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("The amount cannot be 0 or less", HttpStatus.FORBIDDEN);
         }
         Client client= clientService.findByEmail(authentication.getName());
         Loan loan= loanService.findById(loanApplicationDTO.getId());
         Account account= accountService.findByNumberAndClient(loanApplicationDTO.getNumberAccount(),client);
         if (loan==null){
-            return new ResponseEntity<>("No existe el prestamo", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("There is no loan", HttpStatus.FORBIDDEN);
         }
         if(loanApplicationDTO.getAmount()> loan.getMaxAmount()){
-            return new ResponseEntity<>("Monto incorrecto", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Incorrect amount", HttpStatus.FORBIDDEN);
         }
         if (!loan.getPayment().contains(loanApplicationDTO.getPayment())){
-            return new ResponseEntity<>("Numero de cuotas equivocado", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Wrong number of installments", HttpStatus.FORBIDDEN);
         }
         if (account==null){
-            return new ResponseEntity<>("Cuenta no encontrada o no pertenece al cliente seleccionado", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Account not found or does not belong to the selected customer", HttpStatus.FORBIDDEN);
         }
         double amountWhitInterest= sumOfInterest(loanApplicationDTO.getAmount());
         ClientLoan clientLoan= new ClientLoan(amountWhitInterest, loanApplicationDTO.getPayment());
         if(clientLoanService.existsByClientAndLoan(client,loan)){
-            return new ResponseEntity<>("Ya pidio este prestamo",HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("I already requested this loan",HttpStatus.FORBIDDEN);
         }
         Transaction transactionCredit= new Transaction(TransactionType.CREDIT, loanApplicationDTO.getAmount(), loan.getName()+" approved", LocalDateTime.now());
         transactionService.saveTransaction(transactionCredit);

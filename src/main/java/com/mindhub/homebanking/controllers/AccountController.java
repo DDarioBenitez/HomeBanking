@@ -35,13 +35,13 @@ public class AccountController {
     @GetMapping("/api/accounts/{id}")
     public ResponseEntity<Object> getAccount(@PathVariable long id, Authentication authentication){
             if (authentication!=null){
-                Client client= clientService.findById(id);
+                Client client= clientService.findByEmail(authentication.getName());
                 Account account= accountService.findByIdAndClient(id, client);
                 if (account!=null){
                     AccountDTO acc= new AccountDTO(account);
                     return new ResponseEntity<>(acc, HttpStatus.ACCEPTED);
                 }else {
-                    return new ResponseEntity<>("La cuenta no te pertenece", HttpStatus.FORBIDDEN);
+                    return new ResponseEntity<>("The account does not belong to you", HttpStatus.FORBIDDEN);
                 }
             }else {
                 return new ResponseEntity<>("Session expired", HttpStatus.FORBIDDEN);
@@ -78,12 +78,12 @@ public class AccountController {
 
             }else { //Si tiene las de 3 cuentas
 
-             return new ResponseEntity<>("Numero de cuentas Maximo alcanzado", HttpStatus.FORBIDDEN);
+             return new ResponseEntity<>("Maximum number of accounts reached", HttpStatus.FORBIDDEN);
 
             }
         }else { // si no existe un cliente autenticado entra al else
 
-            return new ResponseEntity<>("Cleinte no verificado", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Unverified customer", HttpStatus.FORBIDDEN);
 
         }
     }

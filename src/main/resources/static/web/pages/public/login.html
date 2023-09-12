@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="../../styles/style.css">
 </head>
 
-<body class="d-flex flex-column align-items-center" data-bs-theme="ligth" id="body">
+<body class="d-flex flex-column align-items-center" data-bs-theme="ligth" id="app">
     <header class="navbar-expand-lg col-12">
         <nav class="navbar p-0">
             <div class="container-fluid nav p-2 align-items-center" id="head">
@@ -29,13 +29,16 @@
                 <div class="collapse navbar-collapse justify-content-end gap-2 pe-2" id="navbarSupportedContent">
                     <ul class="navbar-nav mb-2 mb-lg-0  text-center">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            <a class="nav-link active" aria-current="page" href="#"><i class="bi bi-house"></i>
+                                Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Login</a>
+                            <a class="nav-link active" aria-current="page" href="#">| <i
+                                    class="bi bi-box-arrow-in-left"></i> Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="./register.html">Register</a>
+                            <a class="nav-link active" aria-current="page" href="./register.html">| <i
+                                    class="bi bi-person-plus"></i> Register</a>
                     </ul>
 
                     <div>
@@ -49,17 +52,16 @@
             </div>
         </nav>
     </header>
-    <main class="d-flex flex-grow-1 col-11 align-items-center flex-column justify-content-center flex-md-row" id="app">
+    <main class="d-flex flex-grow-1 col-12 align-items-center flex-column justify-content-center flex-md-row text">
         <div class="img-login col-5">
             <img src="../../images/E-Wallet-amico.svg" alt="">
         </div>
         <div
-            class="formLoginRegister container d-flex flex-column form-login bg-transparent blur justify-content-around text-center rounded  gap-3 col-8 col-lg-4">
+            class="formLoginRegister container d-flex flex-column form-login bg-transparent blur justify-content-around text-center rounded  gap-3 col-11 col-lg-3">
             <h1>Login</h1>
-            <form class="col-12 ">
+            <form class="col-12">
                 <label for="userName" class="text-center col-12 p-2 fw-bold bg-transparent"></i>User Name</label>
                 <br>
-                <span class="d-none">Error</span>
                 <input v-model="userName" type="email" name="userName" id="userName"
                     class="bg-transparent col-12 rounded col-lg-7 p-1" placeholder="example@mail.com">
                 <label for="password" class="text-center col-12 p-2 fw-bold">Password</label>
@@ -68,7 +70,7 @@
             </form>
             <button type="button" @click="login" class="col-5 align-self-center rounded btn btn-success">Sign
                 In</button>
-            <a href="../public/register.html">Do you not have Account?</a>
+            <p>Do you not have Account? <a href="../public/register.html">Sing Up</a></p>
         </div>
     </main>
 
@@ -77,10 +79,10 @@
         id="foot">
         <h6 class="p-1 m-lg-0"><i class=" bi bi-c-circle"></i> 2023: All rights reserved</h6>
         <div class="ps-2 pe-2">
-            <a href=""><i class="bi bi-facebook fs-1"></i></a>
-            <a href=""><i class="bi bi-whatsapp fs-1"></i></i></a>
-            <a href=""><i class="bi bi-twitter fs-1"></i></a>
-            <a href=""><i class="bi bi-instagram fs-1"></i></a>
+            <a href="" class=""><i class="bi bi-facebook fs-1"></i></a>
+            <a href="" class=""><i class="bi bi-whatsapp fs-1"></i></i></a>
+            <a href="" class=""><i class="bi bi-twitter fs-1"></i></a>
+            <a href="" class=""><i class="bi bi-instagram fs-1"></i></a>
         </div>
     </footer>
 
@@ -89,6 +91,7 @@
         crossorigin="anonymous"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../../scripts/login.js"></script>
     <script src="../../scripts/theme.js"></script>
 </body>

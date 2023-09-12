@@ -14,15 +14,25 @@ const register = createApp({
     },
     methods: {
         register() {
-            console.log("hola");
             axios.post("/api/clients", `firstName=${this.firstName}&lastName=${this.lastName}&email=${this.email}&password=${this.password}`)
                 .then(response => {
-                    window.alert("Sucess")
-                    window.location.href = "http://localhost:8080/web/pages/public/login.html"
+                    Swal.fire({
+                        icon: 'success',
+                        text: 'Sucess Register',
+                        showConfirmButton: false,
+                    })
+                    setTimeout(() => {
+                        window.location.href = "http://localhost:8080/web/pages/public/login.html"
+                    }, 2000)
                 })
-                .catch(err => {
-                    window.alert("Incomplete data or email already in use, try again")
+                .catch(error => {
+                    Swal.fire({
+                        icon: 'error',
+                        text: 'Incomplete data or email already in use, try again',
+                        showConfirmButton: false,
+                    })
                 })
+            console.log("hola");
         }
     }
 })

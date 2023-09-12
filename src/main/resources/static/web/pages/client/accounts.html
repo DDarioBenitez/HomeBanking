@@ -10,6 +10,11 @@
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     </link>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Kanit:wght@300&family=Lato&family=PT+Serif:wght@400;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="../../styles/style.css">
 </head>
 
@@ -60,7 +65,8 @@
             </div>
         </nav>
     </header>
-    <main class="flex-grow-1 p-2 d-flex flex-column gap-3 align-items-center flex-lg-row justify-content-lg-around">
+    <main
+        class="flex-grow-1 p-2 d-flex flex-column gap-3 align-items-center flex-lg-row justify-content-lg-around flex-wrap text">
         <div class="card cardS p-2 bg-transparent col-lg-4" style="width: 18rem; backdrop-filter: blur(15px);">
             <img src="../../images/avatar-femenino.png" class="card-img-top" alt="...">
             <ul class="list-group list-group-flush fw-bold">
@@ -74,9 +80,9 @@
             </ul>
         </div>
         <div
-            class="d-flex justify-content-around flex-column flex-md-wrap flex-md-row gap-3 align-items-center col-12 col-lg-4">
+            class="d-flex justify-content-around flex-column flex-md-wrap flex-md-row gap-3 align-items-center col-12 col-lg-8">
             <template v-for="account of accounts">
-                <div class="card col-12 bg-transparent text-lg-center col-md-5 col-lg-10"
+                <div class="card col-12 bg-transparent text-lg-center col-md-5 col-lg-5"
                     style="backdrop-filter: blur(15px);">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item bg-transparent" style="backdrop-filter: blur(15px);">Number of
@@ -89,15 +95,15 @@
                     </ul>
                     <a v-bind:href="'./account.html?id='+account.id"
                         class="d-flex justify-content-center text-decoration-none"><button type="button"
-                            class="css-button-gradient--2">View
+                            class="btn btn-secondary">View
                             More</button></a>
                 </div>
             </template>
             <template v-if="accounts.length<3">
-                <button type="button" class="btn btn-info" @click="createdAccount">Add new account</button>
+                <button type="button" class="btn btn-success" @click="createdAccount">Add new account</button>
             </template>
         </div>
-        <div class="d-flex justify-content-around flex-column gap-3 align-items-center col-11 col-lg-4">
+        <div class="d-flex justify-content-around flex-column gap-3 align-items-center col-11 col-lg-8">
             <table class="col-12">
                 <thead class=" p-2 bg-transparent fw-bold border border-black">
                     <tr>

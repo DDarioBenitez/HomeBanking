@@ -34,23 +34,6 @@ const transfer = createApp({
             return balanceFormat
         },
         sendTransfer() {
-            axios.post("http://localhost:8080/api/transactions", `amount=${this.amount.replace(",", ".")}&description=${this.description}&originAccount=${this.numberOrginAcc}&destinyAccount=${this.numberDestinyAcc}`)
-                .then(response => {
-                    let aux = Swal.fire({
-                        title: 'Saved!',
-                        icon: 'success',
-
-                    }).then(response => {
-                        window.location.reload()
-                    })
-                    aux()
-                })
-                .catch(err => {
-                    console.error(err)
-                    Swale.fire('There was an error, try again', ' ', 'info')
-                })
-        },
-        alert() {
             Swal.fire({
                 icon: 'question',
                 title: 'Are you sure make of transaction?',
@@ -58,17 +41,38 @@ const transfer = createApp({
                 showCloseButton: true,
                 showCancelButton: true,
                 cancelButtonText: 'No'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    axios.post("http://localhost:8080/api/transactions", `amount=${this.amount.replace(",", ".")}&description=${this.description}&originAccount=${this.numberOrginAcc}&destinyAccount=${this.numberDestinyAcc}`)
+                        .then(response => {
+                            Swal.fire({
+                                icon: 'success',
+                                text: 'You have requested a new transaction',
+                                showConfirmButton: false,
+                            });
+                            setTimeout(() => {
+                                window.location.reload()
+                            }, 1000)
+                        }).catch((error) => {
+                            console.log(error);
+                            Swal.fire({
+                                icon: 'error',
+                                text: 'A problem occurred',
+                                showConfirmButton: false,
+                            });
+                            setTimeout(() => {
+                                // Puedes agregar aquí cualquier acción adicional si es necesario
+                            }, 1000)
+                        })
+                } else {
+                    Swal.fire({
+                        icon: 'info',
+                        text: 'Operation cancelled',
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+                }
             })
-                .then(response => {
-                    if (response.isConfirmed) {
-                        this.sendTransfer()
-                    } else {
-                        Swale.fire('Transfer cancel', ' ', 'info')
-                    }
-                })
-                .catch(err => {
-                    Swal.fire('Transfer cancel', ' ', 'info')
-                })
         },
         logout() {
             axios.post("http://localhost:8080/api/logout")
