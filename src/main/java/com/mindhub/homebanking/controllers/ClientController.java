@@ -30,18 +30,18 @@ public class ClientController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @RequestMapping("/clients")
+    @GetMapping("/clients")
     public List<ClientDTO> getAll() {
         return clientService.getAllClientsDTO();
     }
 
-    @RequestMapping("/clients/{id}")
+    @GetMapping("/clients/{id}")
     public ClientDTO getClient(@PathVariable long id){
         Client client=clientService.findById(id);
         return new ClientDTO(client);
     }
 
-    @RequestMapping(path = "/clients", method = RequestMethod.POST)
+    @PostMapping("/clients")
     public ResponseEntity<Object> register(
 
             @RequestParam String firstName, @RequestParam String lastName,
@@ -72,7 +72,7 @@ public class ClientController {
         return new ResponseEntity<>(HttpStatus.CREATED);// una vez terminado todo el proceso retorno un response entity con un http estatus en este caso created
     }
 
-    @RequestMapping(path = "/clients/current", method = RequestMethod.GET) //mapea las peticiones tipo Get que recibe este endPoint
+    @GetMapping("/clients/current") //mapea las peticiones tipo Get que recibe este endPoint
     public ClientDTO getCurrentClient(Authentication authentication) {//le paso como parametro el cleinte autenticado que es una instancia de la clase User, trae el username(email) y el password
         return new ClientDTO(clientService.findByEmail(authentication.getName())); // busca en la base de datos el cleinte autenticado en base al email y retorna un DTO del cliente
     }

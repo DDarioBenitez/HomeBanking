@@ -16,6 +16,7 @@ const cards = createApp({
         loadData() {
             axios.get("http://localhost:8080/api/clients/current")
                 .then(data => {
+                    console.log(data);
                     this.client = data.data
                     console.log(this.client);
                     this.accounts = data.data.accounts

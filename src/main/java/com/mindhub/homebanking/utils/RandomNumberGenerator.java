@@ -3,7 +3,7 @@ package com.mindhub.homebanking.utils;
 import java.util.Random;
 import java.util.StringJoiner;
 
-public class RandomNumberGenerator {
+public final class RandomNumberGenerator {
     public static String accountNumberGenerator(){// crea un numero random
         // Genera un número random entre 0 (incluido) y 1 (excluido)
         double random = Math.random();

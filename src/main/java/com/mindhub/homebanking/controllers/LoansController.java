@@ -4,8 +4,8 @@ package com.mindhub.homebanking.controllers;
 import com.mindhub.homebanking.dtos.LoanApplicationDTO;
 import com.mindhub.homebanking.dtos.LoanDTO;
 import com.mindhub.homebanking.models.*;
-import com.mindhub.homebanking.repositories.*;
 import com.mindhub.homebanking.service.*;
+import com.mindhub.homebanking.utils.SumPercentage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -72,7 +69,7 @@ public class LoansController {
         if (account==null){
             return new ResponseEntity<>("Account not found or does not belong to the selected customer", HttpStatus.FORBIDDEN);
         }
-        double amountWhitInterest= sumOfInterest(loanApplicationDTO.getAmount());
+        double amountWhitInterest= SumPercentage.sumOfInterest(loanApplicationDTO.getAmount());
         ClientLoan clientLoan= new ClientLoan(amountWhitInterest, loanApplicationDTO.getPayment());
         if(clientLoanService.existsByClientAndLoan(client,loan)){
             return new ResponseEntity<>("I already requested this loan",HttpStatus.FORBIDDEN);
@@ -88,9 +85,5 @@ public class LoansController {
         clientService.saveClient(client);
         loanService.saveLoan(loan);
         return new ResponseEntity<>("Loan Success", HttpStatus.CREATED);
-    }
-
-    private double sumOfInterest(double amount){
-        return  amount+(amount*0.20);
     }
 }

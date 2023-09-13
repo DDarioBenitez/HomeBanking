@@ -27,7 +27,7 @@ public class AccountController {
     @Autowired
     private ClientService clientService;
 
-    @RequestMapping("/api/accounts")
+    @GetMapping("/api/accounts")
     public List<AccountDTO> getAll(){
         return accountService.getAllAccountsDTO();
     }
