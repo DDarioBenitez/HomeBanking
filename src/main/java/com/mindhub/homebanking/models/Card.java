@@ -20,6 +20,7 @@ public class Card {
     private CardType type;
     private CardColor color;
     private String number;
+    private boolean active;
     @ManyToOne(fetch = FetchType.EAGER)
     private Client client;
 
@@ -34,6 +35,7 @@ public class Card {
         this.number= number;
         this.truDate = this.fromDate.plusYears(5);
         this.cardHolder = cardHolder;
+        this.active=true;
     }
 
     public long getId() {
@@ -95,6 +97,12 @@ public class Card {
         this.number = number;
     }
 
+    public boolean getActive(){
+        return this.active;
+    }
+    public void setActive(boolean active){
+        this.active=active;
+    }
     public Client getClient() {
         return client;
     }

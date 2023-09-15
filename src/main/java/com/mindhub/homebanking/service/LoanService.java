@@ -10,5 +10,6 @@ public interface LoanService {
     List<LoanDTO> getAllLoansDTO();
     List<Loan> getAllLoans();
     Loan findById(long id);
+    Loan findByName(String name);
     void saveLoan(Loan loan);
 }

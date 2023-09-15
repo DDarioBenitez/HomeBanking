@@ -25,6 +25,16 @@ public class CardServiceImplement implements CardService {
     }
 
     @Override
+    public Card findByNumberAndClient(String numberCard, Client client) {
+        return  cardRepository.findByNumberAndClient(numberCard, client);
+    }
+
+    @Override
+    public Card findByNumberAndClientAndCvv(String numberCard, Client client, int cvv) {
+        return cardRepository.findByNumberAndClientAndCvv(numberCard,client,cvv);
+    }
+
+    @Override
     public void saveCard(Card card) {
         cardRepository.save(card);
     }

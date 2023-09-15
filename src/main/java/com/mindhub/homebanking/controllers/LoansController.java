@@ -32,7 +32,6 @@ public class LoansController {
     @Autowired
     private TransactionService transactionService;
 
-
     @GetMapping("/loans")
     public List<LoanDTO> loanDTO(){
         List<LoanDTO> loanDTOSet= loanService.getAllLoansDTO();
@@ -74,7 +73,7 @@ public class LoansController {
         if(clientLoanService.existsByClientAndLoan(client,loan)){
             return new ResponseEntity<>("I already requested this loan",HttpStatus.FORBIDDEN);
         }
-        Transaction transactionCredit= new Transaction(TransactionType.CREDIT, loanApplicationDTO.getAmount(), loan.getName()+" approved", LocalDateTime.now());
+        Transaction transactionCredit= new Transaction(TransactionType.CREDIT, loanApplicationDTO.getAmount(), loan.getName()+" approved", LocalDateTime.now(),account.getBalance()+loanApplicationDTO.getAmount());
         transactionService.saveTransaction(transactionCredit);
         client.addClientLoan(clientLoan);
         loan.addClientLoan(clientLoan);
@@ -84,6 +83,7 @@ public class LoansController {
         clientLoanService.saveClientLoan(clientLoan);
         clientService.saveClient(client);
         loanService.saveLoan(loan);
+
         return new ResponseEntity<>("Loan Success", HttpStatus.CREATED);
     }
 }

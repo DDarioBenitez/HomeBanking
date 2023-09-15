@@ -42,6 +42,11 @@ public class AccountServiceImplement implements AccountService {
     }
 
     @Override
+    public Account findByIdAndClientAndActive(long id, Client client, boolean active) {
+        return accountRepository.findByIdAndClientAndActive(id,client,active);
+    }
+
+    @Override
     public void saveAccount(Account account) {
         accountRepository.save(account);
     }

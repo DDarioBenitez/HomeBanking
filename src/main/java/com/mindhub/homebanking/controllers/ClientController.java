@@ -1,7 +1,9 @@
 package com.mindhub.homebanking.controllers;
 
 import com.mindhub.homebanking.dtos.ClientDTO;
+import com.mindhub.homebanking.dtos.ClientForAdminDTO;
 import com.mindhub.homebanking.models.Account;
+import com.mindhub.homebanking.models.AccountType;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
@@ -31,7 +33,7 @@ public class ClientController {
     private PasswordEncoder passwordEncoder;
 
     @GetMapping("/clients")
-    public List<ClientDTO> getAll() {
+    public List<ClientForAdminDTO> getAll() {
         return clientService.getAllClientsDTO();
     }
 
@@ -64,7 +66,7 @@ public class ClientController {
             numberAccount= "VIN"+accountNumberGenerator();// en caso de que el numero de cuenta ya tenga dueño genero un nuevo numero de cuenta
         }
 
-        Account account= new Account(numberAccount,LocalDate.now(),0);//si el numero de cuenta no existe en la base de datos instancio una nueva cuenta
+        Account account= new Account(numberAccount,LocalDate.now(),0, AccountType.SAVING);//si el numero de cuenta no existe en la base de datos instancio una nueva cuenta
         accountService.saveAccount(account);// guardo en la base de datos la cuenta instanciada
         client.addAccount(account);// le agrego la cuenta creada al cliente creado,
         clientService.saveClient(client);// guardo el cliente una vez tiene agregado la cuenta
