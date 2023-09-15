@@ -25,14 +25,15 @@ public class WebAuthorization {
             http.authorizeRequests()
                     .antMatchers("/web/index.html", "/web/pages/public/**").permitAll()
                     .antMatchers("/web/scripts/login.js", "/web/scripts/register.js","/web/scripts/index.js","/web/scripts/theme.js","/web/styles/**","/web/images/**").permitAll()
-                    .antMatchers(HttpMethod.POST, "/api/login", "/api/clients", "/api/logout").permitAll()
+                    .antMatchers(HttpMethod.POST, "/api/login", "/api/clients", "/api/logout","/api/payment_point").permitAll()
                     .antMatchers(HttpMethod.POST, "/api/clients/current/cards", "/api/clients/current/accounts", "/api/transactions", "/api/loans").hasAuthority("CLIENT")
                     .antMatchers(HttpMethod.GET,"/api/clients/current", "/api/accounts/{id}","/api/loans").hasAuthority("CLIENT")
-                    .antMatchers(HttpMethod.POST, "/h2-console").hasAuthority("ADMIN")
-                    .antMatchers(HttpMethod.GET, "/api/clients","/h2-console").hasAuthority("ADMIN")
+                    .antMatchers(HttpMethod.PATCH, "/api/clients/current/cards","/api/loans/payment").hasAuthority("CLIENT")
+                    .antMatchers(HttpMethod.POST, "/api/admin/loans").hasAuthority("ADMIN")
+                    .antMatchers(HttpMethod.GET, "/api/clients").hasAuthority("ADMIN")
                     .antMatchers("/web/pages/client/**","/web/scripts/accounts.js","/web/scripts/account.js","/web/scripts/cards.js",
                             "/web/scripts/create-cards.js","/web/scripts/transaction.js","/web/scripts/loan-application.js").hasAuthority("CLIENT")
-                    .antMatchers("/web/pages/admin/**","/web/scripts/**","/h2-console").hasAuthority("ADMIN")
+                    .antMatchers("/web/pages/admin/**","/web/scripts/**").hasAuthority("ADMIN")
                     .anyRequest().denyAll()
             ;
 

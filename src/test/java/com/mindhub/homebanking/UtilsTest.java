@@ -32,8 +32,7 @@ public class UtilsTest {
     }
     @Test
     public void sumPercentage(){
-        double amount= 20000.52;
-        double amountWhitPercentage= SumPercentage.sumOfInterest(amount);
-        assertEquals(amount * 1.20, amountWhitPercentage, 0.01);
+        double amountWhitPercentage= SumPercentage.sumOfInterest(20000.52, 14);
+        assertEquals(20000.52 + (20000.52*0.14), amountWhitPercentage, 0.01);
     }
 }

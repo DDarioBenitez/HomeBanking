@@ -13,6 +13,8 @@ public class ClientLoan {
     private long id;
     private double amount;
     private int payment;
+    private double paymentAmount;
+    private double remainingAmount;
     @ManyToOne(fetch = FetchType.EAGER)
     private Client client;
 
@@ -26,6 +28,8 @@ public class ClientLoan {
     public ClientLoan(double amount,int payment){
         this.amount=amount;
         this.payment=payment;
+        this.paymentAmount=amount/payment;
+        this.remainingAmount=amount;
     }
 
     public long getId() {
@@ -46,6 +50,18 @@ public class ClientLoan {
 
     public void setPayment(int payment) {
         this.payment = payment;
+    }
+
+    public double getRemainingAmount() {
+        return remainingAmount;
+    }
+
+    public void setRemainingAmount(double paymentAmount) {
+        this.remainingAmount = this.amount-paymentAmount;
+    }
+
+    public double getPaymentAmount() {
+        return paymentAmount;
     }
 
     public Client getClient() {

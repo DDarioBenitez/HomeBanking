@@ -5,16 +5,18 @@ public class LoanApplicationDTO {
     private long id;
     private double amount;
     private int payment;
+    private double percentage;
     private String numberAccount;
 
     public LoanApplicationDTO(){
 
     }
-    public LoanApplicationDTO(long id, String numberAccount, double amount,int payment){
+    public LoanApplicationDTO(long id, String numberAccount, double amount,int payment,double percentage){
         this.id= id;
         this.numberAccount=numberAccount;
         this.amount=amount;
         this.payment=payment;
+        this.percentage=percentage;
     }
 
     public long getId() {
@@ -27,6 +29,10 @@ public class LoanApplicationDTO {
 
     public int getPayment() {
         return payment;
+    }
+
+    public double getPercentage() {
+        return percentage;
     }
 
     public String getNumberAccount() {

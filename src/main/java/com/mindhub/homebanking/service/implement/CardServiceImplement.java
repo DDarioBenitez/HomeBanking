@@ -9,6 +9,8 @@ import com.mindhub.homebanking.service.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CardServiceImplement implements CardService {
     @Autowired
@@ -22,6 +24,21 @@ public class CardServiceImplement implements CardService {
     @Override
     public Card findByNumber(String number) {
         return cardRepository.findByNumber(number);
+    }
+
+    @Override
+    public Card findByNumberAndClient(String numberCard, Client client) {
+        return  cardRepository.findByNumberAndClient(numberCard, client);
+    }
+
+    @Override
+    public Card findByNumberAndClientAndCvv(String numberCard, Client client, int cvv) {
+        return cardRepository.findByNumberAndClientAndCvv(numberCard,client,cvv);
+    }
+
+    @Override
+    public List<Card> findAllByActiveAndClient(boolean active, Client client) {
+        return cardRepository.findAllByActiveAndClient(active,client);
     }
 
     @Override

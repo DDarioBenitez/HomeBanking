@@ -10,6 +10,7 @@ import com.mindhub.homebanking.repositories.TransactionRepository;
 import com.mindhub.homebanking.service.AccountService;
 import com.mindhub.homebanking.service.ClientService;
 import com.mindhub.homebanking.service.TransactionService;
+import com.mindhub.homebanking.utils.TransactionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -66,15 +67,18 @@ public class TransactionsController {
                 return new ResponseEntity<>("Destination account does not exist", HttpStatus.FORBIDDEN);
             }
 
-            Transaction debitTransaction=new Transaction(TransactionType.DEBIT, amount,description, LocalDateTime.now());
-            Transaction creditTransaction= new Transaction(TransactionType.CREDIT, amount, description,LocalDateTime.now());
+            Transaction debitTransaction=new Transaction(TransactionType.DEBIT, amount,description, LocalDateTime.now(),accountOrigin.getBalance()-amount);
+            Transaction creditTransaction= new Transaction(TransactionType.CREDIT, amount, description,LocalDateTime.now(),accountDestiny.getBalance()-amount);
+
+            accountOrigin.setBalance(accountOrigin.getBalance()-amount);
+            accountDestiny.setBalance(accountDestiny.getBalance()-amount);
+
+            accountOrigin.addTransactions(debitTransaction);
+            accountDestiny.addTransactions(creditTransaction);
+
             transactionService.saveTransaction(debitTransaction);
             transactionService.saveTransaction(creditTransaction);
 
-            accountOrigin.setBalance(accountOrigin.getBalance()-amount);
-            accountDestiny.setBalance(accountDestiny.getBalance()+amount);
-            accountOrigin.addTransactions(debitTransaction);
-            accountDestiny.addTransactions(creditTransaction);
             accountService.saveAccount(accountOrigin);
             accountService.saveAccount(accountDestiny);
 

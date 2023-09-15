@@ -82,4 +82,9 @@ public class RepositoriesTest {
         List<Transaction> transactions= transactionRepository.findAll();
         assertThat(transactions,is(not(empty())));
     }
+    @Test
+    public void getTransaction(){
+        Transaction transaction= transactionRepository.findById(28L).orElseThrow();
+        Assertions.assertNotNull(transaction, "Funciono");
+    }
 }

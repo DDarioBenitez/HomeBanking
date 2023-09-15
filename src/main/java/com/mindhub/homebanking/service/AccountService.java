@@ -13,5 +13,6 @@ public interface AccountService {
     Account findByNumber(String number);
     Account findByNumberAndClient(String number, Client client);
     Account findByIdAndClient(long id, Client client);
+    Account findByIdAndClientAndActive(long id, Client client, boolean active);
     void saveAccount(Account account);
 }
