@@ -1,11 +1,8 @@
 package com.mindhub.homebanking.controllers;
-import com.itextpdf.text.Document;
+import com.itextpdf.text.*;
 
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.PageSize;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.Element;
 import org.springframework.core.io.ByteArrayResource;
 import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Transaction;
@@ -37,25 +34,27 @@ public class ExportPDFController {
     private AccountService accountService;
 
     @GetMapping(value = "/transactions_PDF", produces = MediaType.APPLICATION_PDF_VALUE)
-    public ResponseEntity<Object> getTransactionsPDF(@RequestParam LocalDateTime initDate, @RequestParam LocalDateTime finDate, @RequestParam String numberAccount) throws IOException, DocumentException {
-        if (initDate==null){
+    public ResponseEntity<Object> getTransactionsPDF(@RequestParam String initDate, @RequestParam String finDate, @RequestParam String numberAccount) throws IOException, DocumentException {
+        if (initDate.isBlank()){
             return new ResponseEntity<>("Fecha de inicio vacio", HttpStatus.FORBIDDEN);
         }
-        if(finDate==null){
+        if(finDate.isBlank()){
             return new ResponseEntity<>("Fecha de final vacio", HttpStatus.FORBIDDEN);
         }
         if (numberAccount.isBlank()){
             return new ResponseEntity<>("Numero de cuenta vacio", HttpStatus.FORBIDDEN);
         }
         DateTimeFormatter formatter= DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+        LocalDateTime firstDate;
+        LocalDateTime secondDate;
         try {
-            initDate.format(formatter);
-            finDate.format(formatter);
+            firstDate = LocalDateTime.parse(initDate);
+            secondDate = LocalDateTime.parse(finDate);
         }catch (Exception e){
             return new ResponseEntity<>("Error en los formatos de fecha", HttpStatus.FORBIDDEN);
         }
         Account account= accountService.findByNumber(numberAccount);
-        List<Transaction> transactions= transactionService.findByDateBetweenAndAccount(initDate,finDate,account);
+        List<Transaction> transactions= transactionService.findByDateBetweenAndAccount(firstDate,secondDate,account);
         if(transactions.isEmpty()){
             return new ResponseEntity<>("Transacciones no encontradas", HttpStatus.FORBIDDEN);
         }
@@ -65,6 +64,18 @@ public class ExportPDFController {
         PdfWriter.getInstance(document, byteArrayOutputStream);
         // Abrir el documento
         document.open();
+
+        Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, Font.BOLD);
+        Paragraph title = new Paragraph("Transacciones", titleFont);
+        title.setAlignment(Element.ALIGN_CENTER);
+        title.setSpacingAfter(20); // Espaciado después del título
+        document.add(title);
+
+//        // Agregar la imagen
+//        Image image = Image.getInstance("/web/images/logo-azul.png"); // Reemplaza con la ruta y nombre de tu imagen
+//        image.setAlignment(Element.ALIGN_CENTER);
+//        image.scaleToFit(200, 200); // Ajuste el tamaño de la imagen según tus necesidades
+//        document.add(image);
 
         // Crear la tabla
         PdfPTable table = new PdfPTable(3);

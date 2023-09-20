@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 
 @EnableWebSecurity
 @Configuration
-public class WebAuthorization {
+public class WebAuthorization{
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
@@ -27,7 +27,7 @@ public class WebAuthorization {
                     .antMatchers("/web/scripts/login.js", "/web/scripts/register.js","/web/scripts/index.js","/web/scripts/theme.js","/web/styles/**","/web/images/**").permitAll()
                     .antMatchers(HttpMethod.POST, "/api/login", "/api/clients", "/api/logout","/api/payment_point").permitAll()
                     .antMatchers(HttpMethod.POST, "/api/clients/current/cards", "/api/clients/current/accounts", "/api/transactions", "/api/loans").hasAuthority("CLIENT")
-                    .antMatchers(HttpMethod.GET,"/api/clients/current", "/api/accounts/{id}","/api/loans").hasAuthority("CLIENT")
+                    .antMatchers(HttpMethod.GET,"/api/clients/current", "/api/accounts/{id}","/api/loans","/api/transactions_PDF").hasAuthority("CLIENT")
                     .antMatchers(HttpMethod.PATCH, "/api/clients/current/cards","/api/loans/payment").hasAuthority("CLIENT")
                     .antMatchers(HttpMethod.POST, "/api/admin/loans").hasAuthority("ADMIN")
                     .antMatchers(HttpMethod.GET, "/api/clients").hasAuthority("ADMIN")

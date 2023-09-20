@@ -16,6 +16,7 @@ public class CardDTO {
     private CardType type;
     private CardColor color;
     private String number;
+    private boolean active;
 
     public CardDTO(Card card){
         this.id=card.getId();
@@ -26,6 +27,7 @@ public class CardDTO {
         this.truDate=card.getThruDate();
         this.type=card.getType();
         this.color=card.getColor();
+        this.active=card.getActive();
     }
 
     public long getId() {
@@ -58,5 +60,9 @@ public class CardDTO {
 
     public String getNumber() {
         return number;
+    }
+
+    public boolean isActive() {
+        return active;
     }
 }

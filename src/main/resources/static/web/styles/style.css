@@ -219,6 +219,21 @@ body {
   left: 0.8rem;
 }
 
+.btn-trash {
+  height: 1.8rem;
+  width: 1.8rem;
+  border-radius: 20%;
+  background-color: transparent;
+  border: transparent;
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+.btn-trash:hover {
+  color: red;
+  scale: 1.5;
+  transition: 0.5s;
+}
 /* Form-Login */
 
 .form-login {

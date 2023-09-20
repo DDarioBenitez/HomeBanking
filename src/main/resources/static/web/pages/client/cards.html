@@ -85,20 +85,44 @@
             class="d-flex flex-column flex-md-row flex-md-wrap col-11 col-sm-8 flex-lg-wrap gap-3 col-md-12 col-lg-12 col-xl-9 col-xxl-9 justify-content-around">
             <template v-for="card of cards">
                 <div class="d-flex flex-column flex-md-row flex-md-wrap gap-3 col-md-5 col-lg-4 col-xl-4 col-xxl-3">
-                    <div :class="setColor(card)+ ' d-flex col-12 position-relative'">
-                        <img src="../../images/pngegg.png" alt="" class="w-100 h-100">
-                        <p class="credit-debit z-3 position-absolute fs-3">{{card.type=='CCREDIT' ? "Credit" :
-                            "Debit"}}
-                            Card</p>
-                        <div class="chip z-3 position-absolute"><img src="../../images/chip.png" alt="" class="w-100">
+                    <template v-if="card.active">
+                        <div :class="setColor(card)+ ' d-flex col-12 position-relative'">
+                            <button class="btn-trash position-absolute top-0 end-0 m-1 "><i
+                                    class="bi bi-trash"></i></button>
+                            <img src="../../images/pngegg.png" alt="" class="w-100 h-100">
+                            <p class="credit-debit z-3 position-absolute fs-3">{{card.type=='CCREDIT' ? "Credit" :
+                                "Debit"}}
+                                Card</p>
+                            <div class="chip z-3 position-absolute"><img src="../../images/chip.png" alt=""
+                                    class="w-100">
+                            </div>
+                            <p class="visa z-3 position-absolute fs-3">Visa</p>
+                            <p class="number z-3 position-absolute">{{setNumber(card)}}</p>
+                            <p class="name z-3 position-absolute">{{card.cardHolder}}</p>
+                            <p class="date z-3 position-absolute">{{card.fromDate.slice(2,7)}} /
+                                {{card.truDate.slice(2,7)}}
+                            </p>
                         </div>
-                        <p class="visa z-3 position-absolute fs-3">Visa</p>
-                        <p class="number z-3 position-absolute">{{setNumber(card)}}</p>
-                        <p class="name z-3 position-absolute">{{card.cardHolder}}</p>
-                        <p class="date z-3 position-absolute">{{card.fromDate.slice(2,7)}} /
-                            {{card.truDate.slice(2,7)}}
-                        </p>
-                    </div>
+                    </template>
+                    <template v-else>
+                        <div :class="setColor(card)+ ' d-flex col-12 position-relative border-danger'">
+                            <button class="btn-trash position-absolute top-0 end-0 m-1 "><i
+                                    class="bi bi-trash"></i></button>
+                            <img src="../../images/pngegg.png" alt="" class="w-100 h-100">
+                            <p class="credit-debit z-3 position-absolute fs-3">{{card.type=='CCREDIT' ? "Credit" :
+                                "Debit"}}
+                                Card</p>
+                            <div class="chip z-3 position-absolute"><img src="../../images/chip.png" alt=""
+                                    class="w-100">
+                            </div>
+                            <p class="visa z-3 position-absolute fs-3">Visa</p>
+                            <p class="number z-3 position-absolute">{{setNumber(card)}}</p>
+                            <p class="name z-3 position-absolute">{{card.cardHolder}}</p>
+                            <p class="date z-3 position-absolute">{{card.fromDate.slice(2,7)}} /
+                                {{card.truDate.slice(2,7)}}
+                            </p>
+                        </div>
+                    </template>
                     <div :class="setColor(card)+ ' d-flex col-12 position-relative'">
                         <div class="lineContainer col-9 z-3 position-absolute d-flex align-items-center col-xl-8">
                             <p class="cvv-line col-12"></p>

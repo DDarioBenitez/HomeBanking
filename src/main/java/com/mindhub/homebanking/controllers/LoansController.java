@@ -68,6 +68,11 @@ public class LoansController {
         if (!loan.getPayment().contains(loanApplicationDTO.getPayment())){
             return new ResponseEntity<>("Wrong number of installments", HttpStatus.FORBIDDEN);
         }
+        int indexPayment= loan.getPayment().indexOf(loanApplicationDTO.getPayment());
+        int indexPercentage= loan.getPercentage().indexOf(loanApplicationDTO.getPercentage());
+        if (indexPercentage != indexPayment){
+            return new ResponseEntity<>("La couta no corresponde con el interes", HttpStatus.FORBIDDEN);
+        }
         if (account==null){
             return new ResponseEntity<>("Account not found or does not belong to the selected customer", HttpStatus.FORBIDDEN);
         }

@@ -34,6 +34,8 @@ const transfer = createApp({
             return balanceFormat
         },
         sendTransfer() {
+            this.amount = this.amount.toString().replace(",", ".")
+            console.log(this.amount);
             Swal.fire({
                 icon: 'question',
                 title: 'Are you sure make of transaction?',
@@ -43,7 +45,7 @@ const transfer = createApp({
                 cancelButtonText: 'No'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    axios.post("http://localhost:8080/api/transactions", `amount=${this.amount.replace(",", ".")}&description=${this.description}&originAccount=${this.numberOrginAcc}&destinyAccount=${this.numberDestinyAcc}`)
+                    axios.post("http://localhost:8080/api/transactions", `amount=${this.amount}&description=${this.description}&originAccount=${this.numberOrginAcc}&destinyAccount=${this.numberDestinyAcc}`)
                         .then(response => {
                             Swal.fire({
                                 icon: 'success',
