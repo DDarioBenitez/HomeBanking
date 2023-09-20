@@ -115,7 +115,35 @@ body {
 }
 
 /* tarjets */
+.tarjet {
+  height: 200px;
+  perspective: 1000px;
+}
+.card-front,
+.card-back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+  transform-origin: center;
+}
+.card-front {
+  transform: rotateY(0deg);
+  transition: transform 0.5s;
+}
 
+.card-back {
+  transform: rotateY(180deg);
+  transition: transform 0.5s;
+}
+
+.tarjet:hover .card-front {
+  transform: rotateY(180deg);
+}
+
+.tarjet:hover .card-back {
+  transform: rotateY(0deg);
+}
 .tarjet-gold {
   border-radius: 10px;
   height: 20vh;

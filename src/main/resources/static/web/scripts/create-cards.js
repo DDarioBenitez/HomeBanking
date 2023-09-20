@@ -21,7 +21,7 @@ const newCard = createApp({
                 })
                 .catch(err => {
                     console.log(err);
-                    if (this.cards.length < 6) {
+                    if (this.cards.length >= 6) {
                         window.alert(`${err.response.data}+try again`)
                     } else {
 

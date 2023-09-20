@@ -82,11 +82,12 @@
             </ul>
         </div>
         <div
-            class="d-flex flex-column flex-md-row flex-md-wrap col-11 col-sm-8 flex-lg-wrap gap-3 col-md-12 col-lg-12 col-xl-9 col-xxl-9 justify-content-around">
+            class="d-flex flex-column flex-md-row flex-md-wrap col-11 col-sm-8 flex-lg-wrap gap-3 col-md-12 col-lg-12 col-xl-9 col-xxl-9 justify-content-around align-items-center">
             <template v-for="card of cards">
-                <div class="d-flex flex-column flex-md-row flex-md-wrap gap-3 col-md-5 col-lg-4 col-xl-4 col-xxl-3">
+                <div
+                    class="tarjet d-flex flex-column flex-md-row flex-md-wrap gap-3 col-md-5 col-lg-4 col-xl-4 col-xxl-3">
                     <template v-if="card.active">
-                        <div :class="setColor(card)+ ' d-flex col-12 position-relative'">
+                        <div :class="setColor(card)+ ' card-front d-flex col-12'">
                             <button class="btn-trash position-absolute top-0 end-0 m-1 "><i
                                     class="bi bi-trash"></i></button>
                             <img src="../../images/pngegg.png" alt="" class="w-100 h-100">
@@ -102,10 +103,19 @@
                             <p class="date z-3 position-absolute">{{card.fromDate.slice(2,7)}} /
                                 {{card.truDate.slice(2,7)}}
                             </p>
+                        </div>
+                        <div :class="setColor(card)+ ' card-back d-flex col-12 position-relative'">
+                            <button class="btn-trash position-absolute top-0 end-0 m-1 z-3"><i
+                                    class="bi bi-trash"></i></button>
+                            <div class="lineContainer col-9 z-2 position-absolute d-flex align-items-center col-xl-8">
+                                <p class="cvv-line col-12"></p>
+                                <p class="cvv"> {{card.cvv}}</p>
+                            </div>
+                            <p class="black-line z-2 position-absolute"></p>
                         </div>
                     </template>
                     <template v-else>
-                        <div :class="setColor(card)+ ' d-flex col-12 position-relative border-danger'">
+                        <div :class="setColor(card)+ ' d-flex col-12  border-danger'">
                             <button class="btn-trash position-absolute top-0 end-0 m-1 "><i
                                     class="bi bi-trash"></i></button>
                             <img src="../../images/pngegg.png" alt="" class="w-100 h-100">
@@ -122,18 +132,20 @@
                                 {{card.truDate.slice(2,7)}}
                             </p>
                         </div>
-                    </template>
-                    <div :class="setColor(card)+ ' d-flex col-12 position-relative'">
-                        <div class="lineContainer col-9 z-3 position-absolute d-flex align-items-center col-xl-8">
-                            <p class="cvv-line col-12"></p>
-                            <p class="cvv"> {{card.cvv}}</p>
+                        <div :class="setColor(card)+ ' card-back d-flex col-12 position-relative'">
+                            <button class="btn-trash position-absolute top-0 end-0 m-1 z-3"><i
+                                    class="bi bi-trash"></i></button>
+                            <div class="lineContainer col-9 z-2 position-absolute d-flex align-items-center col-xl-8">
+                                <p class="cvv-line col-12"></p>
+                                <p class="cvv"> {{card.cvv}}</p>
+                            </div>
+                            <p class="black-line z-2 position-absolute"></p>
                         </div>
-                        <p class="black-line z-3 position-absolute"></p>
-                    </div>
+                    </template>
                 </div>
             </template>
             <template v-if="cards.length<6">
-                <button type="button" class="btn btn-success align-self-center col-7 col-md-4 col-lg-4 col-xl-2"
+                <button type="button" class="btn btn-success align-self-center col-10 col-md-4 col-lg-4 col-xl-3"
                     @click="createdCard" style="height: 3rem;">Created
                     New Card</button>
             </template>
@@ -141,7 +153,7 @@
     </main>
 
     <footer
-        class="footer p-1 d-flex flex-column-reverse align-items-center flex-lg-row justify-content-lg-around text-lg-center"
+        class="footer col-12 p-1 d-flex flex-column-reverse align-items-center flex-lg-row justify-content-lg-around text-lg-center"
         id="foot">
         <h6 class="p-1 m-lg-0"><i class=" bi bi-c-circle"></i> 2023: All rights reserved</h6>
         <div class="ps-2 pe-2">
@@ -156,7 +168,6 @@
         crossorigin="anonymous"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../../scripts/cards.js"></script>
     <script src="../../scripts/theme.js"></script>

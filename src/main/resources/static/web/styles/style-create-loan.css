@@ -1,0 +1,16 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+.form-create-loan {
+  height: 90vh;
+}
+
+.form {
+  height: 50vh;
+}
+
+.nav {
+  height: 10vh;
+}
