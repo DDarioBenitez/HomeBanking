@@ -36,13 +36,13 @@ public class ExportPDFController {
     @GetMapping(value = "/transactions_PDF", produces = MediaType.APPLICATION_PDF_VALUE)
     public ResponseEntity<Object> getTransactionsPDF(@RequestParam String initDate, @RequestParam String finDate, @RequestParam String numberAccount) throws IOException, DocumentException {
         if (initDate.isBlank()){
-            return new ResponseEntity<>("Fecha de inicio vacio", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Empty start date", HttpStatus.FORBIDDEN);
         }
         if(finDate.isBlank()){
-            return new ResponseEntity<>("Fecha de final vacio", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Empty end date", HttpStatus.FORBIDDEN);
         }
         if (numberAccount.isBlank()){
-            return new ResponseEntity<>("Numero de cuenta vacio", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Empty account number", HttpStatus.FORBIDDEN);
         }
         DateTimeFormatter formatter= DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
         LocalDateTime firstDate;
@@ -51,12 +51,12 @@ public class ExportPDFController {
             firstDate = LocalDateTime.parse(initDate);
             secondDate = LocalDateTime.parse(finDate);
         }catch (Exception e){
-            return new ResponseEntity<>("Error en los formatos de fecha", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Error in date formats", HttpStatus.FORBIDDEN);
         }
         Account account= accountService.findByNumber(numberAccount);
         List<Transaction> transactions= transactionService.findByDateBetweenAndAccount(firstDate,secondDate,account);
         if(transactions.isEmpty()){
-            return new ResponseEntity<>("Transacciones no encontradas", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Transactions not found", HttpStatus.FORBIDDEN);
         }
         Document document = new Document(PageSize.A4, 50, 50, 50, 50);
 
@@ -66,7 +66,7 @@ public class ExportPDFController {
         document.open();
 
         Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, Font.BOLD);
-        Paragraph title = new Paragraph("Transacciones", titleFont);
+        Paragraph title = new Paragraph("Transactions", titleFont);
         title.setAlignment(Element.ALIGN_CENTER);
         title.setSpacingAfter(20); // Espaciado después del título
         document.add(title);
@@ -81,9 +81,9 @@ public class ExportPDFController {
         PdfPTable table = new PdfPTable(3);
 
         // Agregar las cabeceras
-        table.addCell("Fecha");
-        table.addCell("Descripción");
-        table.addCell("Monto");
+        table.addCell("Date");
+        table.addCell("Description");
+        table.addCell("Amount");
 
         // Agregar las filas de datos
         for (Transaction transaction : transactions) {

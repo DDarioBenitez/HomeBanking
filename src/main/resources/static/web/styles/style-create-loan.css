@@ -2,6 +2,8 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  font-family: "Kanit", sans-serif;
+  font-family: "PT Serif", serif;
 }
 .form-create-loan {
   height: 90vh;

@@ -49,4 +49,7 @@ public class AccountDTO {
         return transactions;
     }
 
+    public AccountType getType() {
+        return type;
+    }
 }

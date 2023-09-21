@@ -55,7 +55,7 @@ public class AccountController {
             Client client = clientService.findByEmail(authentication.getName()); // busco el cliente autenticado en la base de datos y lo guardo en una variable para trabajar con el
 
             if (type.isBlank()){
-                return new ResponseEntity<>("Type no puede estar en blanco", HttpStatus.FORBIDDEN);
+                return new ResponseEntity<>("Type cannot be blank", HttpStatus.FORBIDDEN);
             }
 
             AccountType typeAccount;
@@ -65,10 +65,10 @@ public class AccountController {
                 typeAccount = null;
             }
             if (typeAccount==null){ //si typecoount es null devuelvo un status con un mensaje de error
-                return new ResponseEntity<>("El tipo seleccionado no existe", HttpStatus.FORBIDDEN);
+                return new ResponseEntity<>("The selected type does not exist", HttpStatus.FORBIDDEN);
             }
             Set<Account> accountSet= client.getAccounts().stream().filter(Account::isActive).collect(Collectors.toSet());
-            if(client.getAccounts().size()<3){ //confirmo que el cliente tenga menos de 3 cuentas
+            if(accountSet.size()<3){ //confirmo que el cliente tenga menos de 3 cuentas
                 String accountNewNumber;
                 do{
                     accountNewNumber="VIN"+accountNumberGenerator();
@@ -99,24 +99,24 @@ public class AccountController {
 
         }
     }
-    @PatchMapping("/api/clients/current/accounts")
+    @DeleteMapping("/api/clients/current/accounts")
     public ResponseEntity<Object> deleteAccount(@RequestParam String numberAccount, Boolean active, Authentication authentication){
         if(numberAccount.isBlank()){
-            return new ResponseEntity<>("Numero de cuenta vacio", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Empty account number", HttpStatus.FORBIDDEN);
         }
         if (active == null || active){
-            return new ResponseEntity<>("Parametro con valor incorreceto", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Parameter with incorrect value", HttpStatus.FORBIDDEN);
         }
         Client client= clientService.findByEmail(authentication.getName());
         Account account= accountService.findByNumberAndClient(numberAccount,client);
         if (account==null){
-            return new ResponseEntity<>("La cuenta no pertenece al cliente", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("The account does not belong to the client", HttpStatus.FORBIDDEN);
         }
         if (account.getBalance()>0){
-            return new ResponseEntity<>("La cuenta no puede ser eliminada si el balance es diferente a 0", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("The account cannot be deleted if the balance is different than 0", HttpStatus.FORBIDDEN);
         }
         if (client.getAccounts().size()<=1){
-            return new ResponseEntity<>("Si solo existe una cuenta no puede ser eliminada", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("If there is only one account, it cannot be deleted.", HttpStatus.FORBIDDEN);
         }
         account.setActive(false);
         accountService.saveAccount(account);

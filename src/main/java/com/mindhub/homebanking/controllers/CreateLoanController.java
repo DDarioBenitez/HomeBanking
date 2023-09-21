@@ -28,22 +28,22 @@ public class CreateLoanController {
 //            return new ResponseEntity<>("No tiene autorizacion para esta accion", HttpStatus.FORBIDDEN);
 //        }
         if (loanDTO.getName().isBlank()){
-            return new ResponseEntity<>("El nombre esta en blanco", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("The name is blank", HttpStatus.FORBIDDEN);
         }
         if (loanDTO.getMaxAmount()<=0){
-            return new ResponseEntity<>("El monto no puede ser 0 o menos que 0", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("The amount cannot be 0 or less than 0", HttpStatus.FORBIDDEN);
         }
         if (loanDTO.getPercentage().isEmpty() || loanDTO.getPercentage().stream().anyMatch(element->element==0)){
-            return new ResponseEntity<>("El porcentaje no puede ser igual o menos que 0", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("The percentage cannot be equal to or less than 0", HttpStatus.FORBIDDEN);
         }
         if (loanDTO.getPayment().isEmpty() || loanDTO.getPayment().stream().anyMatch(element->element==0)){
-            return new ResponseEntity<>("La propiedad cuotas no puede estar en blanco", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("The quotas property cannot be blank", HttpStatus.FORBIDDEN);
         }
         if (loanDTO.getPayment().size()<loanDTO.getPercentage().size() || loanDTO.getPayment().size()>loanDTO.getPercentage().size()){
-            return new ResponseEntity<>("Las cuotas y los porcentajes de interes no coinciden", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("The installments and interest percentages do not coincide", HttpStatus.FORBIDDEN);
         }
         if (loanService.findByName(loanDTO.getName())!=null){
-            return new ResponseEntity<>("Ya existe un loan con el mismo nombre", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("There is already a loan with the same name", HttpStatus.FORBIDDEN);
         }
         Loan loan=new Loan(loanDTO.getName(),loanDTO.getMaxAmount(),loanDTO.getPayment(),loanDTO.getPercentage());
         loanService.saveLoan(loan);

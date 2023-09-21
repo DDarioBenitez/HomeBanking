@@ -71,7 +71,7 @@ public class LoansController {
         int indexPayment= loan.getPayment().indexOf(loanApplicationDTO.getPayment());
         int indexPercentage= loan.getPercentage().indexOf(loanApplicationDTO.getPercentage());
         if (indexPercentage != indexPayment){
-            return new ResponseEntity<>("La couta no corresponde con el interes", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("The fee does not correspond to the interest", HttpStatus.FORBIDDEN);
         }
         if (account==null){
             return new ResponseEntity<>("Account not found or does not belong to the selected customer", HttpStatus.FORBIDDEN);
@@ -101,38 +101,38 @@ public class LoansController {
     @PatchMapping("/loans/payment")
     public ResponseEntity<Object> paymentLoan(@RequestParam String loanName,@RequestParam String numberAcc,@RequestParam double amount, Authentication authentication){
         if (loanName.isEmpty()){
-            return new ResponseEntity<>("Name incorrecto", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Incorrect loan name", HttpStatus.FORBIDDEN);
         }
         if (numberAcc.isEmpty()){
-            return new ResponseEntity<>("Numero de cuenta vacio", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Empty account number", HttpStatus.FORBIDDEN);
         }
         if (amount<=0){
-            return new ResponseEntity<>("Monto incorrecto", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Incorrect amount", HttpStatus.FORBIDDEN);
         }
         Client client= clientService.findByEmail(authentication.getName());
         if (client==null){
-            return new ResponseEntity<>("Session expirada o cliente no existe", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Session expired or client does not exist", HttpStatus.FORBIDDEN);
         }
         Account account= accountService.findByNumberAndClient(numberAcc,client);
         if (account==null){
-            return new ResponseEntity<>("Cuenta incorrecta", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Incorrect account", HttpStatus.FORBIDDEN);
         }
         if (amount>account.getBalance()){
-            return new ResponseEntity<>("Balance insuficiente", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Insufficient balance", HttpStatus.FORBIDDEN);
         }
         Loan loan= loanService.findByName(loanName);
         if (loan==null){
-            return new ResponseEntity<>("Loan no existe", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Loan does not exist", HttpStatus.FORBIDDEN);
         }
         ClientLoan clientLoan = client.getClientLoans().stream()
                 .filter(loanC-> loanC.getLoan().getName().equals(loanName))
                 .findFirst()
                 .orElse(null);
         if (clientLoan==null){
-            return new ResponseEntity<>("No tienes un prestamo con ese nombre", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("You don't have a loan with that name", HttpStatus.FORBIDDEN);
         }
         if (amount<clientLoan.getPaymentAmount()){
-            return new ResponseEntity<>("Monto insuficiente", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Insufficient amount", HttpStatus.FORBIDDEN);
         }
         Transaction transaction = new Transaction(TransactionType.DEBIT,amount,"Payment "+clientLoan.getLoan().getName()+" Loan",LocalDateTime.now(), account.getBalance()-amount);
         transaction.setBalanceAccount(account.getBalance()-amount);
@@ -145,6 +145,6 @@ public class LoansController {
         clientLoan.setPayment(clientLoan.getPayment()-1);
         clientLoanService.saveClientLoan(clientLoan);
 
-        return new ResponseEntity<>("Success", HttpStatus.FORBIDDEN);
+        return new ResponseEntity<>("Success", HttpStatus.OK);
     }
 }

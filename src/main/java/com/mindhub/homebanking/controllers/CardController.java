@@ -39,7 +39,7 @@ public class CardController {
             CardColor cardColor=CardColor.valueOf(color);
             List<Card> cardsActive= cardService.findAllByActiveAndClient(true,client);
             Card card= cardsActive.stream()
-                    .filter(c-> c.getType().equals(cardType) && c.getColor().equals(cardColor))
+                    .filter(c-> c.getType().equals(cardType) && c.getColor().equals(cardColor) && c.getActive())
                     .findFirst().orElse(null);
             if (card==null) {//compruebo que el cliente tenga menos del numero maximo de tarjeta
                 int cvv = cvvGenerator();//genero el cvv
@@ -61,7 +61,7 @@ public class CardController {
         }
     }
 
-    @PatchMapping ("/clients/current/cards")
+    @DeleteMapping ("/clients/current/cards")
     public ResponseEntity<Object> deleteCard(@RequestParam Boolean active,@RequestParam String numberCard, Authentication authentication){
         if(active == null || active){
             return new ResponseEntity<>("Parametro incorrecto no puede ser null ni false", HttpStatus.FORBIDDEN);
@@ -72,7 +72,7 @@ public class CardController {
         Client client= clientService.findByEmail(authentication.getName());
         Card card = cardService.findByNumberAndClient(numberCard, client);
         if (card==null){
-          return new ResponseEntity<>("Cuenta inexsitente o no es del cliente", HttpStatus.FORBIDDEN)  ;
+          return new ResponseEntity<>("Card inexsitente o no es del cliente", HttpStatus.FORBIDDEN)  ;
         }
         card.setActive(false);
         cardService.saveCard(card);

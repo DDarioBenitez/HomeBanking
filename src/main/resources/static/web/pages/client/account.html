@@ -44,7 +44,8 @@
                                     class="bi bi-arrow-left-right"></i> Transactions</a>
                         </li>
                         <li class="nav-item">
-                            <button class="nav-link active" @click="logout">| <i class="bi bi-box-arrow-right"></i>
+                            <button class="nav-link active" aria-current="page" @click="logout">| <i
+                                    class="bi bi-box-arrow-right"></i>
                                 Logout</button>
                         </li>
                     </ul>
@@ -77,11 +78,27 @@
                 </li>
             </ul>
         </div>
-        <div class="d-flex justify-content-around flex-column gap-3 align-items-center col-12 col-lg-7">
+        {{prueba}}
+        <div
+            class="d-flex justify-content-around flex-column gap-3 align-items-center col-11 col-lg-7 position-relative">
+            <!-- <template v-if="change"> -->
+            <div class="d-flex text-center flex-column gap-3 flex-md-row">
+                <label for="startDate" class="form-label col-12 col-md-2 m-0 align-self-center fw-bold">Start
+                    Date</label>
+                <input type="date" name="startDate" id="startDate" v-model="startDate" class="form-control">
+                <label for="endDate" class="form-label col-12 col-md-2 m-0 align-self-center fw-bold">End Date</label>
+                <input type="date" name="endDate" id="endDate" v-model="endDate" class="form-control">
+                <button @click="downloadPDF" class="btn btn-success"><i class="bi bi-download"></i></button>
+            </div>
+            <!-- </template> -->
             <table class="col-12">
+                <template v-if="!change">
+                    <button @click="changeV" class="btn-dowloand position-absolute top-0 end-0 m-1"><i
+                            class="bi bi-download"></i></button>
+                </template>
                 <thead class="p-2 bg-transparent border border-black">
                     <tr>
-                        <th class="text-center" colspan="4">Transactions Resume</th>
+                        <th class="text-center fs-3" colspan="5">Transactions Resume</th>
                     </tr>
                     <tr>
                         <td class="p-1 border border-black">Type</td>
@@ -123,6 +140,7 @@
         crossorigin="anonymous"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../../scripts/account.js"></script>
     <script src="../../scripts/theme.js"></script>
 

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Account</title>
+    <title>Cards</title>
     <link rel="shortcut icon" href="../../images/urbanbank-website-favicon-color.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
@@ -48,7 +48,9 @@
                                     class="bi bi-arrow-left-right"></i> Transactions</a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link active">| <i class="bi bi-box-arrow-right"></i> Logout</a>
+                            <button class="nav-link active" aria-current="page" @click="logout">| <i
+                                    class="bi bi-box-arrow-right"></i>
+                                Logout</button>
                         </li>
                     </ul>
 
@@ -85,8 +87,11 @@
             class="d-flex flex-column flex-md-row flex-md-wrap col-11 col-sm-8 flex-lg-wrap gap-3 col-md-12 col-lg-12 col-xl-9 col-xxl-9 justify-content-around align-items-center">
             <template v-for="card of cards">
                 <div
-                    class="tarjet d-flex flex-column flex-md-row flex-md-wrap gap-3 col-md-5 col-lg-4 col-xl-4 col-xxl-3">
+                    class="tarjet d-flex flex-column flex-md-row flex-md-wrap gap-3 col-md-5 col-lg-4 col-xl-4 col-xxl-3 position-relative">
                     <template v-if="card.active">
+                        <template v-if="card.truDate==date">
+                            <span class="band position-absolute top-50 start-50 translate-middle z-1 col-12"></span>
+                        </template>
                         <div :class="setColor(card)+ ' card-front d-flex col-12'">
                             <button class="btn-trash position-absolute top-0 end-0 m-1 "><i
                                     class="bi bi-trash"></i></button>
@@ -104,8 +109,8 @@
                                 {{card.truDate.slice(2,7)}}
                             </p>
                         </div>
-                        <div :class="setColor(card)+ ' card-back d-flex col-12 position-relative'">
-                            <button class="btn-trash position-absolute top-0 end-0 m-1 z-3"><i
+                        <div :class="setColor(card)+ ' card-back d-flex col-12'">
+                            <button @click="deleteCard(card)" class="btn-trash position-absolute top-0 end-0 m-1 z-3"><i
                                     class="bi bi-trash"></i></button>
                             <div class="lineContainer col-9 z-2 position-absolute d-flex align-items-center col-xl-8">
                                 <p class="cvv-line col-12"></p>
@@ -116,7 +121,7 @@
                     </template>
                     <template v-else>
                         <div :class="setColor(card)+ ' d-flex col-12  border-danger'">
-                            <button class="btn-trash position-absolute top-0 end-0 m-1 "><i
+                            <button @click="deleteCard(card)" class="btn-trash position-absolute top-0 end-0 m-1 "><i
                                     class="bi bi-trash"></i></button>
                             <img src="../../images/pngegg.png" alt="" class="w-100 h-100">
                             <p class="credit-debit z-3 position-absolute fs-3">{{card.type=='CCREDIT' ? "Credit" :

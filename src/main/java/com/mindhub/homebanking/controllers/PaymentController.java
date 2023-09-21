@@ -35,31 +35,31 @@ public class PaymentController {
     public ResponseEntity<Object> paymentPoint(@RequestBody PaymentPointDTO paymentPointDTO) {
 
         if (paymentPointDTO.getCardNumber().isBlank()) {
-            return new ResponseEntity<>("Numero de tarjeta no puede estar en blanco", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Card number cannot be blank", HttpStatus.FORBIDDEN);
         }
         if (Integer.toString(paymentPointDTO.getCvv()).length() < 3 || Integer.toString(paymentPointDTO.getCvv()).isBlank()) {
-            return new ResponseEntity<>("Cvv incorrecto, muy corto o en blanco", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Incorrect CVV, very short or blank", HttpStatus.FORBIDDEN);
         }
         if (paymentPointDTO.getAmount() <= 0) {
-            return new ResponseEntity<>("Monto incorrecto no puede ser 0 o menos que 0", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Incorrect amount cannot be 0 or less than 0", HttpStatus.FORBIDDEN);
         }
         if (paymentPointDTO.getDescription().isBlank()) {
-            return new ResponseEntity<>("Descripcion incorrecta, no puede estar vacio", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Incorrect description, cannot be empty", HttpStatus.FORBIDDEN);
         }
         Client client = clientService.findByCardNumber(paymentPointDTO.getCardNumber());
         Card card = cardService.findByNumberAndClientAndCvv(paymentPointDTO.getCardNumber(), client, paymentPointDTO.getCvv());
         if (client == null) {
-            return new ResponseEntity<>("Cliente no encontrado", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Client not found", HttpStatus.FORBIDDEN);
         }
         if (card == null) {
-            return new ResponseEntity<>("Tarjeta no encontrada", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Card not found", HttpStatus.FORBIDDEN);
         }
         if (LocalDate.now().isEqual(card.getThruDate())){
-            return new ResponseEntity<>("La tarjeta vencio", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("The card expired", HttpStatus.FORBIDDEN);
         }
         Set<Account> accounts = client.getAccounts().stream().filter(Account::isActive).collect(Collectors.toSet());
         if (accounts.isEmpty()) {
-            return new ResponseEntity<>("No tiene ninguna cuenta asociada", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Does not have any associated account", HttpStatus.FORBIDDEN);
         }
         Account account = null;
         for (Account acc : accounts) {
@@ -69,7 +69,7 @@ public class PaymentController {
             }
         }
         if (account == null) {
-            return new ResponseEntity<>("Balance insuficiente", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Insufficient balance", HttpStatus.FORBIDDEN);
         }
         Transaction transaction = new Transaction(TransactionType.DEBIT, paymentPointDTO.getAmount(), paymentPointDTO.getDescription(), LocalDateTime.now(),account.getBalance() - paymentPointDTO.getAmount());
         transaction.setAccount(account);
