@@ -14,7 +14,7 @@ const cards = createApp({
     },
     methods: {
         loadData() {
-            axios.get("http://localhost:8080/api/clients/current")
+            axios.get("https://homebanking-production-0510.up.railway.app/api/clients/current")
                 .then(data => {
                     this.client = data.data
                     this.cards = data.data.cards;
@@ -36,9 +36,9 @@ const cards = createApp({
             }
         },
         logout() {
-            axios.post("http://localhost:8080/api/logout")
+            axios.post("https://homebanking-production-0510.up.railway.app/api/logout")
                 .then(response => {
-                    window.location.href = "http://localhost:8080/web/pages/public/login.html"
+                    window.location.href = "https://homebanking-production-0510.up.railway.app/web/pages/public/login.html"
                 })
                 .catch(err => console.log(err))
         },
@@ -70,7 +70,7 @@ const cards = createApp({
                     const colorSelect = document.getElementById("color");
                     const type = typeSelect.value;
                     const color = colorSelect.value;
-                    axios.post('http://localhost:8080/api/clients/current/cards', `type=${type}&color=${color}`)
+                    axios.post('https://homebanking-production-0510.up.railway.app/api/clients/current/cards', `type=${type}&color=${color}`)
                         .then(response => {
                             window.location.reload();
                         })
@@ -106,7 +106,7 @@ const cards = createApp({
                 confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    axios.delete("http://localhost:8080/api/clients/current/cards", {
+                    axios.delete("hhttps://homebanking-production-0510.up.railway.app/api/clients/current/cards", {
                         params: {
                             active: false,
                             numberCard: card.number
