@@ -15,7 +15,7 @@ const cards = createApp({
     },
     methods: {
         loadData() {
-            axios.get("http://localhost:8080/api/clients/current")
+            axios.get("https://homebanking-production-0510.up.railway.app/api/clients/current")
                 .then(data => {
                     console.log(data);
                     this.client = data.data
@@ -32,9 +32,9 @@ const cards = createApp({
             return balanceFormat
         },
         logout() {
-            axios.post("http://localhost:8080/api/logout")
+            axios.post("/api/logout")
                 .then(response => {
-                    window.location.href = "http://localhost:8080/web/pages/public/login.html"
+                    window.location.href = "https://homebanking-production-0510.up.railway.app/web/pages/public/login.html"
                 })
                 .catch(err => console.log(err))
         },
@@ -68,7 +68,7 @@ const cards = createApp({
                         }
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            axios.post(`http://localhost:8080/api/clients/current/accounts?type=${this.typeAccount}`)
+                            axios.post(`https://homebanking-production-0510.up.railway.app/api/clients/current/accounts?type=${this.typeAccount}`)
                                 .then(response => {
                                     window.location.reload()
                                 })
@@ -103,7 +103,7 @@ const cards = createApp({
                 confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    axios.delete("http://localhost:8080/api/clients/current/accounts", {
+                    axios.delete("https://homebanking-production-0510.up.railway.app/api/clients/current/accounts", {
                         params: {
                             numberAccount: acc.number,
                             active: false
@@ -168,7 +168,7 @@ const cards = createApp({
                         let loanN = loan.name
                         let numberAcc = acc.number
                         console.log(loan.name, acc.number, loanPaym);
-                        axios.patch(`http://localhost:8080/api/loans/payment?loanName=${loanN}&numberAcc=${numberAcc}&amount=${loanPaym}`)
+                        axios.patch(`https://homebanking-production-0510.up.railway.app/api/loans/payment?loanName=${loanN}&numberAcc=${numberAcc}&amount=${loanPaym}`)
                             .then(response => {
                                 Swal.fire(
                                     'Paid!',
