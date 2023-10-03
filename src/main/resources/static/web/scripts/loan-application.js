@@ -24,7 +24,7 @@ const loans = createApp({
     },
     methods: {
         getLoans() {
-            axios.get("http://localhost:8080/api/loans")
+            axios.get("https://homebanking-production-0510.up.railway.app/api/loans")
                 .then(respone => {
                     this.loans = this.getLoansNot(respone.data)
                     console.log(this.loans);
@@ -32,7 +32,7 @@ const loans = createApp({
                 .catch(err => console.log(err))
         },
         getAccounts() {
-            axios.get("http://localhost:8080/api/clients/current")
+            axios.get("https://homebanking-production-0510.up.railway.app/api/clients/current")
                 .then(response => {
                     this.client = response.data
                     this.accounts = this.client.accounts
@@ -103,7 +103,7 @@ const loans = createApp({
             }).then(response => {
                 console.log(response);
                 if (response.isConfirmed) {
-                    axios.post("http://localhost:8080/api/loans", { "id": this.idLoanSelect, "numberAccount": this.numberAccount, "amount": this.amount, "payment": this.paymentSelect, "percentage": this.percentageSelect })
+                    axios.post("https://homebanking-production-0510.up.railway.app/api/loans", { "id": this.idLoanSelect, "numberAccount": this.numberAccount, "amount": this.amount, "payment": this.paymentSelect, "percentage": this.percentageSelect })
                         .then(respone => {
                             console.log(respone.data);
                             Swal.fire({
@@ -138,9 +138,9 @@ const loans = createApp({
             })
         },
         logout() {
-            axios.post("http://localhost:8080/api/logout")
+            axios.post("https://homebanking-production-0510.up.railway.app/api/logout")
                 .then(response => {
-                    window.location.href = "http://localhost:8080/web/pages/public/login.html"
+                    window.location.href = "https://homebanking-production-0510.up.railway.app/web/pages/public/login.html"
                 })
                 .catch(err => console.log(err))
         }
