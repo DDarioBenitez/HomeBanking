@@ -14,10 +14,10 @@ const newCard = createApp({
     methods: {
         createCard() {
             console.log(this.type);
-            axios.post('http://localhost:8080/api/clients/current/cards', `type=${this.type}&color=${this.color}`)
+            axios.post('https://homebanking-production-0510.up.railway.app/api/clients/current/cards', `type=${this.type}&color=${this.color}`)
                 .then(response => {
                     window.alert(`${response.data}`)
-                    window.location.href = "http://localhost:8080/web/pages/client/cards.html"
+                    window.location.href = "https://homebanking-production-0510.up.railway.app/web/pages/client/cards.html"
                 })
                 .catch(err => {
                     console.log(err);
@@ -30,7 +30,7 @@ const newCard = createApp({
                 })
         },
         loadData() {
-            axios.get("http://localhost:8080/api/clients/current")
+            axios.get("https://homebanking-production-0510.up.railway.app/api/clients/current")
                 .then(data => {
                     this.client = data.data
                     this.cards = data.data.cards;
@@ -39,9 +39,9 @@ const newCard = createApp({
                 .catch(error => console.log("ERROR"))
         },
         logout() {
-            axios.post("http://localhost:8080/api/logout")
+            axios.post("https://homebanking-production-0510.up.railway.app/api/logout")
                 .then(response => {
-                    window.location.href = "http://localhost:8080/web/pages/public/login.html"
+                    window.location.href = "https://homebanking-production-0510.up.railway.app/web/pages/public/login.html"
                 })
                 .catch(err => console.log(err))
         }
