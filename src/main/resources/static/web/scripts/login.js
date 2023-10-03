@@ -22,11 +22,11 @@ const login = createApp({
                     })
                     if (this.userName.includes("admin")) {
                         setTimeout(() => {
-                            window.location.href = "https://homebanking-production-0510.up.railway.app//web/pages/admin/manager.html";
+                            window.location.href = "https://homebanking-production-0510.up.railway.app/web/pages/admin/manager.html";
                         }, 2000);
                     } else {
                         setTimeout(() => {
-                            window.location.href = "https://homebanking-production-0510.up.railway.app//web/pages/client/accounts.html";
+                            window.location.href = "https://homebanking-production-0510.up.railway.app/web/pages/client/accounts.html";
                         }, 2000);
                     }
                 })
