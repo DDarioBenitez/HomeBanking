@@ -21,7 +21,7 @@ const transfer = createApp({
     },
     methods: {
         loadData() {
-            axios.get("http://localhost:8080/api/clients/current")
+            axios.get("https://homebanking-production-0510.up.railway.app/api/clients/current")
                 .then(response => {
                     this.client = response.data
                     this.accounts = this.client.accounts
@@ -45,7 +45,7 @@ const transfer = createApp({
                 cancelButtonText: 'No'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    axios.post("http://localhost:8080/api/transactions", `amount=${this.amount}&description=${this.description}&originAccount=${this.numberOrginAcc}&destinyAccount=${this.numberDestinyAcc}`)
+                    axios.post("https://homebanking-production-0510.up.railway.app/api/transactions", `amount=${this.amount}&description=${this.description}&originAccount=${this.numberOrginAcc}&destinyAccount=${this.numberDestinyAcc}`)
                         .then(response => {
                             Swal.fire({
                                 icon: 'success',
@@ -77,9 +77,9 @@ const transfer = createApp({
             })
         },
         logout() {
-            axios.post("http://localhost:8080/api/logout")
+            axios.post("https://homebanking-production-0510.up.railway.app/api/logout")
                 .then(response => {
-                    window.location.href = "http://localhost:8080/web/pages/public/login.html"
+                    window.location.href = "https://homebanking-production-0510.up.railway.app/web/pages/public/login.html"
                 })
                 .catch(err => console.log(err))
         },
