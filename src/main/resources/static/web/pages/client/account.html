@@ -43,7 +43,7 @@
                             <a class="nav-link active" aria-current="page" href="./transaction.html">| <i
                                     class="bi bi-arrow-left-right"></i> Transactions</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item d-flex justify-content-center">
                             <button class="nav-link active" aria-current="page" @click="logout">| <i
                                     class="bi bi-box-arrow-right"></i>
                                 Logout</button>
@@ -81,16 +81,17 @@
         {{prueba}}
         <div
             class="d-flex justify-content-around flex-column gap-3 align-items-center col-11 col-lg-7 position-relative">
-            <!-- <template v-if="change"> -->
-            <div class="d-flex text-center flex-column gap-3 flex-md-row">
-                <label for="startDate" class="form-label col-12 col-md-2 m-0 align-self-center fw-bold">Start
-                    Date</label>
-                <input type="date" name="startDate" id="startDate" v-model="startDate" class="form-control">
-                <label for="endDate" class="form-label col-12 col-md-2 m-0 align-self-center fw-bold">End Date</label>
-                <input type="date" name="endDate" id="endDate" v-model="endDate" class="form-control">
-                <button @click="downloadPDF" class="btn btn-success"><i class="bi bi-download"></i></button>
-            </div>
-            <!-- </template> -->
+            <template v-if="change">
+                <div class="d-flex text-center flex-column gap-3 flex-md-row">
+                    <label for="startDate" class="form-label col-12 col-md-2 m-0 align-self-center fw-bold">Start
+                        Date</label>
+                    <input type="date" name="startDate" id="startDate" v-model="startDate" class="form-control">
+                    <label for="endDate" class="form-label col-12 col-md-2 m-0 align-self-center fw-bold">End
+                        Date</label>
+                    <input type="date" name="endDate" id="endDate" v-model="endDate" class="form-control">
+                    <button @click="downloadPDF" class="btn btn-success"><i class="bi bi-download"></i></button>
+                </div>
+            </template>
             <table class="col-12">
                 <template v-if="!change">
                     <button @click="changeV" class="btn-dowloand position-absolute top-0 end-0 m-1"><i

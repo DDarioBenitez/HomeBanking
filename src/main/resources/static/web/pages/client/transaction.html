@@ -44,7 +44,7 @@
                             <a class="nav-link active" aria-current="page" href="./transaction.html">| <i
                                     class="bi bi-arrow-left-right"></i> Transactions</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item d-flex justify-content-center">
                             <button class="nav-link active" aria-current="page" @click="logout">| <i
                                     class="bi bi-box-arrow-right"></i>
                                 Logout</button>
@@ -71,23 +71,22 @@
                 class=" col-12 col-lg-8 col-xxl-7 svg">
             <div
                 class="inp-div col-md-9 col-12 col-lg-4 d-flex flex-column align-items-center justify-content-center gap-3 p-2 pb-3 pe-md-4">
-                <h1>New Transfer</h1>
-                <label for="amount">Amount</label>
+                <h1 class="fw-bold">New Transfer</h1>
 
-                <label for="amount">Select Amount</label>
+                <label class="fw-bold fs-4" for="amount">Select Amount</label>
                 <input type="number" id="amount" min="1" class="col-10 col-md-8 col-xl-6 bg-transparent rounded-3 p-1"
                     v-model="amount">
-                <label for="description">Description</label>
+                <label class="fw-bold fs-4" for="description">Description</label>
                 <input type="text" id="description" class="col-10 col-md-8 col-xl-6 bg-transparent rounded-3 p-1"
                     v-model="description">
-                <label for="where" class="fs-3">Select one</label>
+                <label for="where" class="fs-4 fw-bold">Select one</label>
                 <div class="d-flex align-items-center flex-column col-5 gap-2">
                     <div class="d-flex align-items-center text-center justify-content-between col-12 pb-2">
-                        <p class="m-0">My Accounts</p>
+                        <p class="m-0 fw-bold">My Accounts</p>
                         <input type="radio" name="where" id="my" value="my" v-model="originAcc" @click="showMyAcc">
                     </div>
                     <div class="d-flex align-items-center text-center justify-content-between col-12">
-                        <p class="m-0">Other Account</p>
+                        <p class="m-0 fw-bold">Other Account</p>
                         <input type="radio" name="where" id="other" value="other" v-model="originAcc"
                             @click="showOtherAcc">
                     </div>

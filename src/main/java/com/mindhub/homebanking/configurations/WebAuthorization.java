@@ -29,7 +29,8 @@ public class WebAuthorization{
 
             http
                     .cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues()) // Configuración CORS
-                    .and().authorizeRequests()
+                    .and()
+                    .authorizeRequests()
                     .antMatchers("/web/index.html", "/web/pages/public/**").permitAll()
                     .antMatchers("/web/scripts/login.js", "/web/scripts/register.js","/web/scripts/index.js","/web/scripts/theme.js","/web/styles/**","/web/images/**").permitAll()
                     .antMatchers(HttpMethod.POST, "/api/login", "/api/clients", "/api/logout","/api/payment_point").permitAll()
@@ -90,7 +91,7 @@ public class WebAuthorization{
 //    @Bean
 //    public CorsConfigurationSource corsConfigurationSource() {
 //        CorsConfiguration configuration = new CorsConfiguration();
-//        configuration.setAllowedOrigins(List.of("*")); // Define los orígenes permitidos
+//        configuration.setAllowedOrigins(Array.asList("*")); // Define los orígenes permitidos
 //        configuration.setAllowedMethods(Arrays.asList("*")); // Define los métodos permitidos
 //
 //        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

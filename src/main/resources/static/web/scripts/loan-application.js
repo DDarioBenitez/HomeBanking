@@ -16,6 +16,7 @@ const loans = createApp({
             maxAmount: "",
             idLoanSelect: "",
             paymentSelect: "",
+            percentageSelect: ""
         }
     },
     created() {
@@ -54,7 +55,6 @@ const loans = createApp({
                 this.percentage = [... this.loans.find(loan => loan.id === this.idLoanSelect).percentage]
                 this.getMaxAmount()
             }
-            console.log(this.paymentSelect);
         },
         getMaxAmount() {
             this.maxAmount = this.loans.find(loan => loan.id === this.idLoanSelect).maxAmount
@@ -65,8 +65,17 @@ const loans = createApp({
                 result[current] = this.percentage[index];
                 return result;
             }, {});
+            this.getPercentageOfPayment()
+            console.log(this.percentage);
+            console.log(this.paymentSelect);
             console.log(this.paymentWhitPercentage[this.paymentSelect] * parseInt(this.amount));
             console.log(typeof parseInt(this.amount));
+        },
+        getPercentageOfPayment() {
+            let aux = this.paymentOption.indexOf(this.paymentSelect)
+            if (aux !== -1) {
+                this.percentageSelect = this.percentage[aux]
+            }
         },
         formatAmount(maxAmount) {
             let reset = new Intl.NumberFormat('en-En', { style: 'currency', currency: 'USD' })
@@ -79,7 +88,7 @@ const loans = createApp({
         },
         showPAymentAmount(amount, payment) {
             console.log(typeof payment);
-            let aux = "El monto de la cuota es de: " + ((parseInt(amount) + (this.paymentWhitPercentage[this.paymentSelect] * parseInt(amount) / 100)) / payment).toFixed(2)
+            let aux = "El monto de la cuota es de: " + this.formatAmount(((parseInt(amount) + (this.paymentWhitPercentage[this.paymentSelect] * parseInt(amount) / 100)) / payment).toFixed(2))
             return aux
         },
         alert() {
@@ -94,7 +103,7 @@ const loans = createApp({
             }).then(response => {
                 console.log(response);
                 if (response.isConfirmed) {
-                    axios.post("http://localhost:8080/api/loans", { "id": this.idLoanSelect, "numberAccount": this.numberAccount, "amount": this.amount, "payment": this.paymentSelect })
+                    axios.post("http://localhost:8080/api/loans", { "id": this.idLoanSelect, "numberAccount": this.numberAccount, "amount": this.amount, "payment": this.paymentSelect, "percentage": this.percentageSelect })
                         .then(respone => {
                             console.log(respone.data);
                             Swal.fire({

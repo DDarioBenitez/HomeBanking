@@ -14,6 +14,7 @@ const login = createApp({
         login() {
             axios.post("/api/login", `email=${this.userName}&password=${this.password}`)
                 .then(response => {
+                    console.log(response)
                     Swal.fire({
                         icon: 'success',
                         text: 'Sucess Login',
