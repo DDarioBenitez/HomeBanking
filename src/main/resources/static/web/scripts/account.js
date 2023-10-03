@@ -19,7 +19,7 @@ const transactions = createApp({
     },
     methods: {
         loadClient() {
-            axios.get("http://localhost:8080/api/clients/current")
+            axios.get("https://homebanking-production-0510.up.railway.app/api/clients/current")
                 .then(data => {
                     this.client = data.data
                     console.log(this.client);
@@ -34,7 +34,7 @@ const transactions = createApp({
             console.log(accountIdSearch);
             let accountId = accountIdSearch.get('id')
             console.log(accountId);
-            axios.get("http://localhost:8080/api/accounts/" + accountId)
+            axios.get("https://homebanking-production-0510.up.railway.app/api/accounts/" + accountId)
                 .then(response => {
                     this.account = response.data
                     this.transactions = [...response.data.transactions];
@@ -47,9 +47,9 @@ const transactions = createApp({
                 .catch(error => console.log(error))
         },
         logout() {
-            axios.post("http://localhost:8080/api/logout")
+            axios.post("https://homebanking-production-0510.up.railway.app/api/logout")
                 .then(response => {
-                    window.location.href = "http://localhost:8080/web/pages/public/login.html"
+                    window.location.href = "https://homebanking-production-0510.up.railway.app/web/pages/public/login.html"
                 })
                 .catch(err => console.log(err))
         },
@@ -68,7 +68,7 @@ const transactions = createApp({
             const eDate = `${this.endDate}T00:00:00`;
 
             // Realiza la solicitud HTTP al backend para descargar el PDF
-            axios.get(`http://localhost:8080/api/transactions_PDF`, {
+            axios.get(`https://homebanking-production-0510.up.railway.app/api/transactions_PDF`, {
                 params: {
                     initDate: sDate,
                     finDate: eDate,
