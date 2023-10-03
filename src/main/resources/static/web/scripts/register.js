@@ -22,7 +22,7 @@ const register = createApp({
                         showConfirmButton: false,
                     })
                     setTimeout(() => {
-                        window.location.href = "http://localhost:8080/web/pages/public/login.html"
+                        window.location.href = "https://homebanking-production-0510.up.railway.app/web/pages/public/login.html"
                     }, 2000)
                 })
                 .catch(error => {
